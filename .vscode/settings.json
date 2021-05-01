@@ -1,0 +1,11 @@
+{
+	"eslint.packageManager": "yarn",
+	"eslint.validate": [
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact"
+	],
+	"files.trimFinalNewlines": true,
+	"files.trimTrailingWhitespace": true
+}
