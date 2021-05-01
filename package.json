@@ -1,0 +1,10 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "description": "KwonTF Blog",
+  "main": "index.js",
+  "repository": "https://github.com/KwonTF/blog.git",
+  "author": "KwonTF <ktf1008@naver.com>",
+  "license": "MIT",
+  "private": true
+}
