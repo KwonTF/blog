@@ -1,0 +1,9 @@
+{
+  "name": "@blog/api",
+  "version": "0.0.1",
+  "description": "api server of blog",
+  "main": "index.js",
+  "author": "KwonTF <ktf1008@naver.com>",
+  "license": "MIT",
+  "devDependencies": {}
+}
