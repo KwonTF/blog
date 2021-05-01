@@ -1,0 +1,9 @@
+{
+  "name": "@blog/shared",
+  "version": "0.0.1",
+  "description": "shared utils",
+  "main": "index.js",
+  "author": "KwonTF <ktf1008@naver.com>",
+  "license": "MIT",
+  "devDependencies": {}
+}

@@ -6,5 +6,11 @@
   "repository": "https://github.com/KwonTF/blog.git",
   "author": "KwonTF <ktf1008@naver.com>",
   "license": "MIT",
-  "private": true
+  "private": true,
+  "workspaces": [
+    "packages/**"
+  ],
+  "devDependencies": {
+    "eslint": "^7.25.0"
+  }
 }
