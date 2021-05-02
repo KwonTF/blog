@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		// path
+		"baseUrl": ".",
+		"rootDir": ".",
+		"outDir": "dist",
+		// module
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"isolatedModules": false,
+		// compile
+		"allowJs": true,
+		"noEmit": false,
+		"jsx": "react",
+		"sourceMap": true,
+		"target": "es2019",
+		// lint
+		"strictNullChecks": false,
+		"noImplicitReturns": false,
+		"noImplicitAny": false,
+		"noUnusedLocals": true,
+		// etc
+		"importHelpers": true,
+		"removeComments": true,
+		"forceConsistentCasingInFileNames": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"experimentalDecorators": true,
+		"noErrorTruncation": true,
+		"resolveJsonModule": true,
+		"typeRoots": ["node_modules/@types"]
+		// "preserveSymlinks": true
+	},
+	"exclude": ["node_modules"],
+	"include": ["./packages/**/*"]
+}
