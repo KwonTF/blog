@@ -10,13 +10,16 @@ module.exports = {
 		'plugin:@typescript-eslint/eslint-recommended',
 
 		// for enable Typescript lint rules and apply eslint-plugin
-		'plugin:@typescript-eslint/recommended'
+		'plugin:@typescript-eslint/recommended',
+
+		// for enable eslint-plugin-prettier and eslint-config-prettier
+		'plugin:prettier/recommended'
 	],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true
 		},
-		ecmaVersion: 2018,
+		ecmaVersion: 2021,
 		sourceType: 'module'
 	},
 	rules: {
@@ -64,7 +67,6 @@ module.exports = {
 		'@typescript-eslint/no-var-requires': 'warn',
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/no-empty-interface': 'warn',
-		'@typescript-eslint/camelcase': 'warn',
 
 		// off rules
 		'@typescript-eslint/explicit-function-return-type': 'off',
