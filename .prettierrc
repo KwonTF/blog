@@ -8,6 +8,6 @@
   "jsxSingleQuote": true,
   "useTabs": true,
   "proseWrap": "preserve",
-  "quoteProps": "as-needed",
+  "quoteProps": "consistent",
   "tabWidth": 2
 }
