@@ -1,12 +1,11 @@
 {
-  "name": "@blog/shared",
+  "name": "@blog/shared-client",
   "version": "0.0.1",
-  "description": "shared utils",
+  "description": "shared utils in client",
   "main": "index.js",
   "author": "KwonTF <ktf1008@naver.com>",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
-    "nodemon": "^2.0.7"
+    "react": "^17.0.2"
   }
 }

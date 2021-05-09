@@ -1,12 +1,12 @@
 {
-  "name": "@blog/shared",
+  "name": "@blog/admin",
   "version": "0.0.1",
-  "description": "shared utils",
+  "description": "admin page of blog",
   "main": "index.js",
   "author": "KwonTF <ktf1008@naver.com>",
   "license": "MIT",
-  "devDependencies": {},
   "dependencies": {
-    "nodemon": "^2.0.7"
+    "@blog/shared": "*",
+    "@blog/shared-client": "*"
   }
 }
