@@ -57,6 +57,7 @@ module.exports = {
 			'error',
 			{
 				multiline: {
+					delimiter: 'none',
 					requireLast: false
 				}
 			}
