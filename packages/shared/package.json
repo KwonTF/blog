@@ -1,0 +1,10 @@
+{
+  "name": "@blog/shared",
+  "version": "0.1.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react": "^17.0.13",
+    "ts-node": "^10.0.0"
+  }
+}
