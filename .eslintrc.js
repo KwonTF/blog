@@ -15,7 +15,7 @@ module.exports = {
 		// for enable eslint-plugin-prettier and eslint-config-prettier
 		'plugin:prettier/recommended'
 	],
-	plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier'],
+	plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier', 'import'],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true
@@ -32,7 +32,6 @@ module.exports = {
 		'no-param-reassign': ['error', {props: true}],
 		'no-mixed-spaces-and-tabs': 'error',
 		'no-unused-vars': 'error',
-		// 'no-use-before-define': ['error', {functions: false, variables: false}],
 		'array-element-newline': ['error', 'consistent'],
 		'arrow-body-style': 'error',
 		'object-curly-newline': ['error', {consistent: true}],
@@ -72,7 +71,32 @@ module.exports = {
 
 		// off rules
 		'@typescript-eslint/explicit-function-return-type': 'off',
-		'@typescript-eslint/interface-name-prefix': 'off'
+		'@typescript-eslint/interface-name-prefix': 'off',
+
+		//import Rules
+		// error rules
+		'import/order': [
+			'error',
+			{
+				// Order import types
+				'groups': [['builtin', 'external'], 'internal', ['parent', 'sibling', 'index']],
+				//Combine and Group patterns
+				'pathGroups': [
+					{
+						pattern: '@blog/shared*/**',
+						group: 'external',
+						position: 'after'
+					},
+					{
+						pattern: '@blog/**',
+						group: 'external',
+						position: 'after'
+					}
+				],
+				'pathGroupsExcludedImportTypes': ['builtin'],
+				'newlines-between': 'always'
+			}
+		]
 	},
 	settings: {
 		react: {

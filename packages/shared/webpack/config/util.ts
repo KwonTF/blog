@@ -7,8 +7,9 @@ export function getBabelPresetEnv({isClient}: {isClient: boolean}) {
 		{
 			targets: {...targetOption},
 			useBuiltIns: 'usage',
-			corejs: 3,
-			shippedProposals: true
+			// option for useBulitins usage
+			shippedProposals: true,
+			corejs: 3
 		}
 	]
 }

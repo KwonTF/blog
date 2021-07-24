@@ -9,6 +9,7 @@
     "babel-loader": "^8.2.2",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.2.12",
-    "webpack": "^5.42.0"
+    "webpack": "^5.42.0",
+    "webpack-merge": "^5.8.0"
   }
 }
