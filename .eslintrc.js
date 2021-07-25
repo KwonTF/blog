@@ -31,7 +31,6 @@ module.exports = {
 		'consistent-return': 'error',
 		'no-param-reassign': ['error', {props: true}],
 		'no-mixed-spaces-and-tabs': 'error',
-		'no-unused-vars': 'error',
 		'array-element-newline': ['error', 'consistent'],
 		'arrow-body-style': 'error',
 		'object-curly-newline': ['error', {consistent: true}],
@@ -47,6 +46,7 @@ module.exports = {
 
 		// off rules
 		'max-len': 'off',
+		'no-unused-vars': 'off',
 
 		// typescript rules
 		// error rules
@@ -66,11 +66,11 @@ module.exports = {
 		'@typescript-eslint/no-useless-constructor': 'warn',
 		'@typescript-eslint/explicit-member-accessibility': ['warn', {accessibility: 'explicit'}],
 		'@typescript-eslint/no-var-requires': 'warn',
-		'@typescript-eslint/no-explicit-any': 'warn',
 		'@typescript-eslint/no-empty-interface': 'warn',
 
 		// off rules
 		'@typescript-eslint/explicit-function-return-type': 'off',
+		'@typescript-eslint/no-explicit-any': 'off',
 		'@typescript-eslint/interface-name-prefix': 'off',
 
 		//import Rules
