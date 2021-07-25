@@ -21,7 +21,7 @@ function getBodyAsString(body: any) {
 	return bodyString
 }
 
-export function xssFilter(ctx: Context & {request: {body: any}}, next: () => Promise<any>): void {
+export default function xssCheck(ctx: Context & {request: {body: any}}, next: () => Promise<any>): void {
 	const url = decodeURIComponent(ctx.originalUrl)
 	const body = getBodyAsString(ctx.request?.body)
 

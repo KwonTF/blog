@@ -15,6 +15,8 @@
         "@types/koa": "^2.13.4",
         "@types/koa-bodyparser": "^4.3.2",
         "@types/koa-router": "^7.4.4",
-        "@types/koa__cors": "^3.0.3"
+        "@types/koa-webpack": "^6.0.4",
+        "@types/koa__cors": "^3.0.3",
+        "koa-webpack": "^6.0.0"
     }
 }

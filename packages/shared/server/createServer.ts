@@ -5,7 +5,7 @@ import cors from '@koa/cors'
 import bodyParser from 'koa-bodyparser'
 
 import {AsyncFunction} from '@blog/shared/types'
-import {xssFilter} from '@blog/shared/server/middlewares/xssFilter'
+import xssCheck from '@blog/shared/server/middlewares/xssCheck'
 
 type Config = Record<string, any> & {
 	baseUrl: string
@@ -37,7 +37,7 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
 	// compress the response file to speed up
 	app.use(compress())
 	// check xss Script
-	app.use(xssFilter)
+	app.use(xssCheck)
 	// Filter CORS Problem
 	app.use(cors({origin: checkRequestOrigin(config.corsOrigins || [config.baseUrl])}))
 	// parse Body
