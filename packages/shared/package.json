@@ -6,6 +6,7 @@
   "devDependencies": {
     "@types/node": "^16.0.0",
     "@types/react": "^17.0.13",
+    "nodemon": "^2.0.12",
     "ts-node": "^10.0.0"
   },
   "dependencies": {

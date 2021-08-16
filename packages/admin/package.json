@@ -9,5 +9,8 @@
     "@blog/shared": "0.1.0",
     "@blog/shared-client": "0.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon"
+  }
 }

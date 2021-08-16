@@ -37,7 +37,6 @@ module.exports = {
 		'space-infix-ops': 'error',
 
 		// warn rules
-		'no-shadow': 'warn',
 		'prefer-destructuring': 'warn',
 		'no-underscore-dangle': 'warn',
 		'newline-per-chained-call': 'warn',
@@ -47,6 +46,7 @@ module.exports = {
 		// off rules
 		'max-len': 'off',
 		'no-unused-vars': 'off',
+		'no-shadow': 'off',
 
 		// typescript rules
 		// error rules
@@ -67,6 +67,7 @@ module.exports = {
 		'@typescript-eslint/explicit-member-accessibility': ['warn', {accessibility: 'explicit'}],
 		'@typescript-eslint/no-var-requires': 'warn',
 		'@typescript-eslint/no-empty-interface': 'warn',
+		'@typescript-eslint/no-shadow': 'warn',
 
 		// off rules
 		'@typescript-eslint/explicit-function-return-type': 'off',
