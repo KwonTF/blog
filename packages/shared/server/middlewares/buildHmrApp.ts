@@ -4,10 +4,11 @@ import {Middleware} from 'koa'
 
 type buildAppArgs = {
   clientConfig: Configuration
+  ssrServerConfig: Configuration
 }
 
 let clientMiddleWare: Middleware
-export default async function buildApp({clientConfig}: buildAppArgs): Promise<Middleware> {
+export default async function buildHmrApp({clientConfig, ssrServerConfig}: buildAppArgs): Promise<Middleware> {
   const clientCompiler = webpack(clientConfig)
   clientMiddleWare = await koaWebpack({
     compiler: clientCompiler,

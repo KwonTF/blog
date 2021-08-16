@@ -7,7 +7,7 @@ import {getBaseWebpackConfig} from '@blog/shared-webpack/config/base.config'
 
 type GetClientConfigArgs = {
   packagePath: string
-  entries: DictType<string>
+  entries: DictType<string[]>
   assetsPrefix: string
   isDev?: boolean
 }
@@ -15,17 +15,10 @@ type GetClientConfigArgs = {
 export function getClientWebpackConfig({packagePath, entries, assetsPrefix, isDev}: GetClientConfigArgs): Configuration {
   const output = path.join(packagePath, './dist')
   const baseConfig = getBaseWebpackConfig({tsConfigPath: path.join(packagePath, 'tsconfig.json')})
-  const entry = isDev
-    ? Object.entries(entries).reduce((prev, [key, value]) => {
-        const next = prev
-        next[key] = [value]
-        return next
-      }, {})
-    : entries
   return merge(baseConfig, {
     mode: 'development',
     context: packagePath,
-    entry: entry,
+    entry: {...entries, vendor: ['react', 'react-dom']},
     target: 'web',
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     output: {

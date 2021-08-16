@@ -7,6 +7,8 @@
     "@babel/preset-env": "^7.14.7",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.14.5",
+    "@types/webpack": "^4.41.30",
+    "@types/webpack-merge": "^5.0.0",
     "babel-loader": "^8.2.2",
     "file-loader": "^6.2.0",
     "fork-ts-checker-webpack-plugin": "^6.2.12",
