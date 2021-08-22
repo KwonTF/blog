@@ -17,6 +17,7 @@ const ssrServerConfig = getSSRServerWebpackConfig({
 
 async function startServer() {
   const koaAppMiddleware = await buildHmrApp({clientConfig: clientWebpackConfig, ssrServerConfig: ssrServerConfig})
+
   const server = await createServer({
     port: 7650,
     middlewares: koaAppMiddleware,
