@@ -5,12 +5,12 @@ import {Configuration} from 'webpack'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 import {getBabelPresetEnv} from './util'
-export type GetBaseConfigArgs = {
+export type GetBaseWebpackConfigArgs = {
   tsConfigPath: string
   isClient?: boolean
 }
 
-export function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseConfigArgs): Configuration {
+export function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackConfigArgs): Configuration {
   return {
     entry: './src/index.tsx',
     output: {

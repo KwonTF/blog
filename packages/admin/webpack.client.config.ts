@@ -1,6 +1,6 @@
-import {getClientWebpackConfig} from '@blog/shared/webpack/config/client.config'
+import {getReactWebpackConfig} from '@blog/shared-webpack/config/react.config'
 
-export default getClientWebpackConfig({
+export default getReactWebpackConfig({
   packagePath: __dirname,
   entries: {
     // TODO: Fix to ts file

@@ -2,11 +2,12 @@ import path from 'path'
 
 import buildHmrApp from '@blog/shared/server/middlewares/buildHmrApp'
 import createServer from '@blog/shared-server/createServer'
-import getSSRServerWebpackConfig from '@blog/shared/webpack/config/ssrServer.config'
+import {getSSRServerWebpackConfig} from '@blog/shared/webpack/config/ssr.config'
 
 import clientWebpackConfig from '@blog/admin/webpack.client.config'
+import {root} from '@blog/admin/config/paths'
 
-const context = path.normalize(`${__dirname}/..`)
+const context = root
 const ssrServerConfig = getSSRServerWebpackConfig({
   context,
   isLocal: true,
