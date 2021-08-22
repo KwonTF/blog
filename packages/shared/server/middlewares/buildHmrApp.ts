@@ -56,9 +56,7 @@ export default async function buildHmrApp({clientConfig, ssrServerConfig}: build
   })
 
   const localWebpackMiddleware = (ctx, next) => {
-    console.log('WHAT')
     if (serverMiddleware) {
-      console.log('YES MIDDLEWARE')
       return serverMiddleware(ctx, next)
     }
     return next()

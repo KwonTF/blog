@@ -12,7 +12,7 @@ const ssrServerConfig = getSSRServerWebpackConfig({
   context,
   isLocal: true,
   tsConfigPath: 'tsconfig.json',
-  entry: [path.join(context, 'src/server/middlewares/local.ts')]
+  entry: [path.join(context, 'src/server/ssrMiddlewares/dev.ts')]
 })
 
 async function startServer() {
