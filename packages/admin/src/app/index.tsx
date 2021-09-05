@@ -1,12 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 
-function App() {
-	return (
-		<div className='container'>
-			<h3 className='title'>webpack example</h3>
-		</div>
-	)
+function App(): JSX.Element {
+  return (
+    <div className='container'>
+      <h3 className='title'>webpack example Rendered!</h3>
+    </div>
+  )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+export default App

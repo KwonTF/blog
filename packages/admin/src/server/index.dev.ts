@@ -20,12 +20,12 @@ async function startServer() {
 
   const server = await createServer({
     port: 7650,
-    middlewares: koaAppMiddleware,
-    config: {
-      // TODO: Apply Domain
-      baseUrl: 'simpleURL',
-      corsOrigins: ['simpleURL', 'sampleURL']
-    }
+    middlewares: koaAppMiddleware
+    // config: {
+    //   // TODO: Apply Domain
+    //   baseUrl: 'simpleURL',
+    //   corsOrigins: ['simpleURL', 'sampleURL']
+    // }
   })
   server.start()
 }

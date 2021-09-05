@@ -28,7 +28,6 @@ module.exports = {
     // error rules
     'no-console': 'error',
     'no-eq-null': 'error',
-    'consistent-return': 'error',
     'no-param-reassign': ['error', {props: true}],
     'array-element-newline': ['error', 'consistent'],
     'arrow-body-style': 'error',
@@ -37,6 +36,7 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 'error',
 
     // warn rules
+    'consistent-return': 'warn',
     'prefer-destructuring': 'warn',
     'no-underscore-dangle': 'warn',
     'newline-per-chained-call': 'warn',
