@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import http from 'http'
 import Koa, {Middleware} from 'koa'
 import compress from 'koa-compress'
 // import cors from '@koa/cors'
@@ -6,6 +7,9 @@ import bodyParser from 'koa-bodyparser'
 
 import {AsyncFunction} from '@blog/shared/types'
 import xssCheck from '@blog/shared/server/middlewares/xssCheck'
+
+let httpServer: http.Server
+let shutdownInitiated = false
 
 type Config = Record<string, any> & {
   baseUrl: string
@@ -16,6 +20,7 @@ type CreateServerOption = {
   port?: number
   middlewares?: Middleware[]
   preStartFunctions?: AsyncFunction[]
+  shutdownJobs?: AsyncFunction[]
   onStart?: (app: Koa) => void
   config?: Config
 }
@@ -30,8 +35,33 @@ type CreateServerOption = {
 // 	}
 // }
 
+function shutdown(shutdownJobs: AsyncFunction[]) {
+  if (shutdownInitiated) return
+  shutdownInitiated = true
+
+  const shutdownHook = async () => {
+    try {
+      await Promise.all((shutdownJobs || []).map((job) => job()))
+    } catch (shutdownError) {
+      // skip shutdownError
+      return null
+    } finally {
+      setTimeout(() => {
+        // stdout stream 처리를 위한 timeout
+        process.exit(0)
+      }, 250)
+    }
+  }
+
+  if (httpServer) {
+    httpServer.close()
+  }
+  shutdownHook()
+}
+
 async function createServer(option: CreateServerOption): Promise<{app: any; start: () => void}> {
-  const {preStartFunctions, middlewares = [], onStart, port} = option
+  const {preStartFunctions, middlewares = [], onStart, port, shutdownJobs} = option
+  process.on('SIGINT', () => shutdown(shutdownJobs))
 
   const app = new Koa()
   // compress the response file to speed up
@@ -41,7 +71,11 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
   // Filter CORS Problem
   // app.use(cors({origin: checkRequestOrigin(config.corsOrigins || [config.baseUrl])}))
   // parse Body
-  app.use(bodyParser())
+  app.use(
+    bodyParser({
+      jsonLimit: '20mb'
+    })
+  )
   app.use(async (ctx, next) => {
     ctx.status = 200
     await next()
@@ -58,7 +92,7 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
   return {
     app,
     start: () => {
-      app.listen(port)
+      httpServer = app.listen(port, () => null)
       if (onStart) onStart(app)
     }
   }

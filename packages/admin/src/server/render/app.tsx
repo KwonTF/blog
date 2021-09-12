@@ -8,7 +8,7 @@ type SSRProps = {
   ctx: Context
 }
 
-export async function renderApp({ctx}: SSRProps): Promise<string> {
+export async function renderApp({ctx}: SSRProps) {
   let renderedString
   const {App} = ctx.state
   ctx.state.routerContext = {}

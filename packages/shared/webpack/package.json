@@ -16,5 +16,7 @@
     "webpack-cli": "^4.7.2",
     "webpack-merge": "^5.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "core-js": "^3.17.3"
+  }
 }

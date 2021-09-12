@@ -20,7 +20,6 @@ function getAppSettings() {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function setApp(ctx: Context, next) {
   // eslint-disable-next-line no-param-reassign
   ctx.state = {...ctx.state, ...getAppSettings()}

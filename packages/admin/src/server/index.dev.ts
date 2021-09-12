@@ -1,6 +1,6 @@
 import path from 'path'
 
-import buildHmrApp from '@blog/shared/server/middlewares/buildHmrApp'
+import buildHmrApp, {devMiddlewareCleanup} from '@blog/shared/server/middlewares/buildHmrApp'
 import createServer from '@blog/shared-server/createServer'
 import {getSSRServerWebpackConfig} from '@blog/shared/webpack/config/ssr.config'
 
@@ -20,6 +20,7 @@ async function startServer() {
 
   const server = await createServer({
     port: 7650,
+    shutdownJobs: [devMiddlewareCleanup],
     middlewares: koaAppMiddleware
     // config: {
     //   // TODO: Apply Domain

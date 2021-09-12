@@ -36,7 +36,6 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 'error',
 
     // warn rules
-    'consistent-return': 'warn',
     'prefer-destructuring': 'warn',
     'no-underscore-dangle': 'warn',
     'newline-per-chained-call': 'warn',
@@ -65,6 +64,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     'prettier/prettier': 'off',
+    'consistent-return': 'warn',
 
     // typescript rules
     // error rules
@@ -91,6 +91,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/interface-name-prefix': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
 
     //import Rules
     // error rules

@@ -4,7 +4,7 @@ export default getReactWebpackConfig({
   packagePath: __dirname,
   entries: {
     // TODO: Fix to ts file
-    client: ['./src/app/index.tsx']
+    client: ['./src/client/index.ts']
   },
   assetsPrefix: '/admin/assets',
   isDev: true

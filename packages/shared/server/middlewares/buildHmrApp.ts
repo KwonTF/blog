@@ -1,8 +1,20 @@
+import fs from 'fs'
 import path from 'path'
 import {Middleware} from 'koa'
-import webpack, {Configuration, Stats} from 'webpack'
+import webpack, {Configuration} from 'webpack'
 import koaWebpack from 'koa-webpack'
 import webpackHotMiddleware from 'koa-webpack-hot-middleware'
+// For Use Memory Filesystem to Use Hot Module Webpacked Component
+import {ufs} from 'unionfs'
+import join from 'memory-fs/lib/join'
+import {patchRequire} from 'fs-monkey'
+import {vol} from 'memfs'
+const memFs: any = vol
+function useMemoryFileSystem() {
+  memFs.join = join
+  ufs.use(fs).use(memFs)
+  patchRequire(ufs)
+}
 
 type buildAppArgs = {
   clientConfig: Configuration
@@ -11,25 +23,6 @@ type buildAppArgs = {
 
 let clientDevMiddleWare
 let serverDevMiddleWare
-let serverModule, serverMiddleware
-
-function passSSRServerBundle(serverStats: Stats): void {
-  try {
-    const {compilation} = serverStats
-    const {path: outputPath} = compilation.outputOptions
-    const filename = Object.keys(compilation.assets).find((key) => /.js$/i.test(key) && key.startsWith('index'))
-    const serverOutputPath = path.join(outputPath, filename)
-
-    serverModule = require(serverOutputPath)
-    if (serverModule) {
-      serverModule.default().then((middleware) => {
-        serverMiddleware = middleware
-      })
-    }
-  } catch (e) {
-    return
-  }
-}
 
 export default async function buildHmrApp({clientConfig, ssrServerConfig}: buildAppArgs): Promise<Middleware[]> {
   const clientCompiler = webpack(clientConfig)
@@ -43,17 +36,35 @@ export default async function buildHmrApp({clientConfig, ssrServerConfig}: build
       stats: {
         colors: true
       }
-    }
+    },
+    hotClient: false
   })
 
+  useMemoryFileSystem()
   // Compile SSR Server
   serverDevMiddleWare = await koaWebpack({
     compiler: serverCompiler,
     devMiddleware: {
+      fs: memFs,
+      writeToDisk: process.platform === 'win32',
       publicPath: ssrServerConfig.output.path,
       stats: {colors: true}
-    }
+    },
+    hotClient: false
   })
+
+  let serverModule, serverMiddleware
+
+  function passBundles() {
+    if (serverModule) {
+      serverModule
+        .default()
+        .then((middleware) => {
+          serverMiddleware = middleware
+        })
+        .catch((e) => null)
+    }
+  }
 
   const localWebpackMiddleware = (ctx, next) => {
     if (serverMiddleware) {
@@ -62,11 +73,23 @@ export default async function buildHmrApp({clientConfig, ssrServerConfig}: build
     return next()
   }
 
-  serverCompiler.hooks.done.tap('serverBundle', passSSRServerBundle)
+  serverCompiler.hooks.done.tap('serverBundle', (serverStats) => {
+    try {
+      const {compilation} = serverStats
+      const {path: outputPath} = compilation.outputOptions
+      const filename = Object.keys(compilation.assets).find((key) => /.js$/i.test(key) && key.startsWith('index'))
+      const serverOutputPath = path.join(outputPath, filename)
+
+      serverModule = require(serverOutputPath)
+      passBundles()
+    } catch (e) {
+      return
+    }
+  })
   return [clientDevMiddleWare, webpackHotMiddleware(clientCompiler), localWebpackMiddleware]
 }
 
-export function devMiddlewareCleanup(): void {
+export async function devMiddlewareCleanup() {
   if (clientDevMiddleWare?.close) clientDevMiddleWare.close()
   if (serverDevMiddleWare?.close) serverDevMiddleWare.close()
 }
