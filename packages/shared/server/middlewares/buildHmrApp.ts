@@ -9,6 +9,8 @@ import {ufs} from 'unionfs'
 import join from 'memory-fs/lib/join'
 import {patchRequire} from 'fs-monkey'
 import {vol} from 'memfs'
+
+import logger from '@blog/shared/utils/logger'
 const memFs: any = vol
 function useMemoryFileSystem() {
   memFs.join = join
@@ -57,12 +59,9 @@ export default async function buildHmrApp({clientConfig, ssrServerConfig}: build
 
   function passBundles() {
     if (serverModule) {
-      serverModule
-        .default()
-        .then((middleware) => {
-          serverMiddleware = middleware
-        })
-        .catch((e) => null)
+      serverModule.default().then((middleware) => {
+        serverMiddleware = middleware
+      })
     }
   }
 
@@ -83,7 +82,7 @@ export default async function buildHmrApp({clientConfig, ssrServerConfig}: build
       serverModule = require(serverOutputPath)
       passBundles()
     } catch (e) {
-      return
+      if (e) logger.error(e)
     }
   })
   return [clientDevMiddleWare, webpackHotMiddleware(clientCompiler), localWebpackMiddleware]

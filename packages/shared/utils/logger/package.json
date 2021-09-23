@@ -1,0 +1,9 @@
+{
+  "name": "logger",
+  "version": "1.0.0",
+  "main": "./logger.server.ts",
+  "browser": "./logger.client.ts",
+  "author": "KwonTF",
+  "license": "MIT",
+  "private": true
+}

@@ -6,6 +6,7 @@ import compress from 'koa-compress'
 import bodyParser from 'koa-bodyparser'
 
 import {AsyncFunction} from '@blog/shared/types'
+import logger from '@blog/shared-utils/logger'
 import xssCheck from '@blog/shared/server/middlewares/xssCheck'
 
 let httpServer: http.Server
@@ -44,10 +45,10 @@ function shutdown(shutdownJobs: AsyncFunction[]) {
       await Promise.all((shutdownJobs || []).map((job) => job()))
     } catch (shutdownError) {
       // skip shutdownError
-      return null
+      logger.error('Shutdown error')
     } finally {
       setTimeout(() => {
-        // stdout stream 처리를 위한 timeout
+        // timeout for stdout stream
         process.exit(0)
       }, 250)
     }
@@ -92,7 +93,9 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
   return {
     app,
     start: () => {
-      httpServer = app.listen(port, () => null)
+      httpServer = app.listen(port, () => {
+        logger.debug(`> Ready on http://localhost:${port}`)
+      })
       if (onStart) onStart(app)
     }
   }

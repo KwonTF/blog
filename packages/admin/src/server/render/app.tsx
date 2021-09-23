@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
-//import Error?
 import {Context} from 'koa'
+
+import logger from '@blog/shared/utils/logger'
 
 type SSRProps = {
   ctx: Context
@@ -15,6 +16,7 @@ export async function renderApp({ctx}: SSRProps) {
   try {
     renderedString = await ReactDOMServer.renderToString(<App />)
   } catch (error) {
+    logger.log(error)
     return null
   }
 
