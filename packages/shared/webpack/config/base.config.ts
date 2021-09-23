@@ -1,6 +1,5 @@
 // Webpack Typescript Guide
 // https://webpack.js.org/configuration/configuration-languages/
-import path from 'path'
 import {Configuration} from 'webpack'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
@@ -10,33 +9,21 @@ export type GetBaseWebpackConfigArgs = {
   isClient?: boolean
 }
 
-export function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackConfigArgs): Configuration {
-  return {
-    entry: './src/index.tsx',
-    output: {
-      filename: 'main.js',
-      path: path.resolve(__dirname, 'dist')
-    },
+function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackConfigArgs): Configuration {
+  const config: Configuration = {
     mode: 'development',
-    resolve: {extensions: ['.tsx', '.ts', '.mjs', '.js', '.json']},
-    optimization: {
-      usedExports: true
-    },
-    plugins: [
-      new ForkTsCheckerWebpackPlugin({
-        typescript: {
-          configFile: tsConfigPath
-        }
-      })
-    ],
     module: {
       rules: [
         {
           test: /\.(ts|js)x?$/,
-          exclude: /node_modules/,
           loader: 'babel-loader',
           options: {
-            presets: [getBabelPresetEnv({isClient}), '@babel/preset-react', '@babel/preset-typescript']
+            presets: [getBabelPresetEnv({isClient}), '@babel/preset-react', '@babel/preset-typescript'],
+            plugins: ['@babel/plugin-proposal-class-properties']
+          },
+          exclude: function (requrirePath) {
+            if (requrirePath.match(/node_modules/)) return true
+            return false
           }
         },
         {
@@ -48,6 +35,21 @@ export function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackCon
           ]
         }
       ]
-    }
+    },
+    resolve: {extensions: ['.tsx', '.ts', '.mjs', '.js', '.json']},
+    optimization: {
+      usedExports: true
+    },
+    plugins: [
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          configFile: tsConfigPath
+        }
+      })
+    ]
   }
+
+  return config
 }
+
+export {getBaseWebpackConfig}
