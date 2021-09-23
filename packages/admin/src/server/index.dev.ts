@@ -22,11 +22,6 @@ async function startServer() {
     port: 7650,
     shutdownJobs: [devMiddlewareCleanup],
     middlewares: koaAppMiddleware
-    // config: {
-    //   // TODO: Apply Domain
-    //   baseUrl: 'simpleURL',
-    //   corsOrigins: ['simpleURL', 'sampleURL']
-    // }
   })
   server.start()
 }

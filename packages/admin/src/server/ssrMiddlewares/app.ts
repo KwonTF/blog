@@ -14,9 +14,7 @@ function getAppSettings() {
     App,
     serverRenderer,
     clientConfig,
-    clientConfigString: configString,
-    favIcon32: `${config.assetsPrefix}/images/favicon-32x32.png`,
-    favIcon16: `${config.assetsPrefix}/images/favicon-16x16.png`
+    clientConfigString: configString
   }
 }
 
