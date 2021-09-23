@@ -1,0 +1,13 @@
+{
+  "name": "@blog/admin",
+  "version": "0.0.1",
+  "description": "admin page of blog",
+  "main": "index.js",
+  "author": "KwonTF <ktf1008@naver.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@blog/shared": "0.1.0",
+    "@blog/shared-client": "0.1.0"
+  },
+  "devDependencies": {}
+}

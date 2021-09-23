@@ -15,6 +15,7 @@ module.exports = {
 		// for enable eslint-plugin-prettier and eslint-config-prettier
 		'plugin:prettier/recommended'
 	],
+	plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier'],
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true
@@ -31,7 +32,7 @@ module.exports = {
 		'no-param-reassign': ['error', {props: true}],
 		'no-mixed-spaces-and-tabs': 'error',
 		'no-unused-vars': 'error',
-		'no-use-before-define': ['error', {functions: false, variables: false}],
+		// 'no-use-before-define': ['error', {functions: false, variables: false}],
 		'array-element-newline': ['error', 'consistent'],
 		'arrow-body-style': 'error',
 		'object-curly-newline': ['error', {consistent: true}],
@@ -56,6 +57,7 @@ module.exports = {
 			'error',
 			{
 				multiline: {
+					delimiter: 'none',
 					requireLast: false
 				}
 			}
@@ -72,5 +74,9 @@ module.exports = {
 		'@typescript-eslint/explicit-function-return-type': 'off',
 		'@typescript-eslint/interface-name-prefix': 'off'
 	},
-	settings: {}
+	settings: {
+		react: {
+			version: 'detect'
+		}
+	}
 }
