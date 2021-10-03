@@ -1,6 +1,7 @@
 {
-	"extends": "../../tsconfig.base.json",
-	"compilerOptions": {
-		"target": "es2017"
-	}
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    //Use ES2019 for Webpack Version 4
+    "target": "ES2019"
+  }
 }

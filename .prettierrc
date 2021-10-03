@@ -6,8 +6,6 @@
   "trailingComma": "none",
   "bracketSpacing": false,
   "jsxSingleQuote": true,
-  "useTabs": true,
   "proseWrap": "preserve",
-  "quoteProps": "consistent",
-  "tabWidth": 2
+  "quoteProps": "consistent"
 }

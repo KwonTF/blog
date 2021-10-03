@@ -1,0 +1,9 @@
+{
+  "name": "@blog/admin-config",
+  "version": "0.1.0",
+  "main": "./index.server.ts",
+  "browser": "./index.client.ts",
+  "author": "KwonTF",
+  "license": "MIT",
+  "private": true
+}

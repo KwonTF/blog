@@ -1,0 +1,19 @@
+{
+    "watch": [
+        "src/server/index.dev.ts",
+        "config",
+        "webpack.client.config.ts"
+    ],
+    "ignore": [
+        "node_modules",
+        "dist",
+        "__generated__"
+    ],
+    "exec": "ts-node src/server/index.dev.ts",
+    "ext": "js ts tsx",
+    "signal": "SIGINT",
+    "delay": "500",
+    "env": {
+        "NODE_ENV": "development"
+    }
+}

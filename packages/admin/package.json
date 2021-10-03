@@ -9,5 +9,10 @@
     "@blog/shared": "0.1.0",
     "@blog/shared-client": "0.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "^4.44.2"
+  },
+  "scripts": {
+    "dev": "nodemon"
+  }
 }
