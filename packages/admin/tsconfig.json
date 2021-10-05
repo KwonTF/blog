@@ -2,6 +2,14 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     //Use ES2019 for Webpack Version 4
-    "target": "ES2019"
-  }
+    "target": "es6",
+    "lib": ["ES2020", "DOM"],
+    "noImplicitThis": false,
+    "strict": false,
+    "paths": {
+      "@blog/admin/*": ["packages/admin/*"],
+      "@blog/shared/*": ["packages/shared/*"]
+    }
+  },
+  "include": ["src/**/*.ts"]
 }

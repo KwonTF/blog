@@ -1,0 +1,8 @@
+{
+  "name": "@blog/types-blog-scss",
+  "version": "1.0.0",
+  "main": "index.d.ts",
+  "types": "index.d.ts",
+  "license": "MIT",
+  "private": true
+}
