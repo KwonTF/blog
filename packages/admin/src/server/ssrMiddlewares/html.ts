@@ -1,7 +1,7 @@
 import {Context} from 'koa'
 export async function htmlMiddleware(ctx: Context) {
   const {clientConfig: config, clientConfigString, serverRenderer} = ctx?.state
-  const appString = await serverRenderer({ctx})
+  const {renderedString: appString, css} = await serverRenderer({ctx})
   if (ctx?.state?.routerContext?.url) {
     ctx.redirect(ctx.state.routerContext.url)
     return
@@ -14,6 +14,7 @@ export async function htmlMiddleware(ctx: Context) {
     <html lang="ko">
       <head>
         <meta charset="UTF-8">
+        <style>${[...css].join('')}</style>
       </head>
       <body>
         <div id="${config.appElementId}" style="min-height:100%; display:flex; flex-direction: column; flex-grow: 1;">${appString}</div>

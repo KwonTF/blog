@@ -5,7 +5,10 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^16.0.0",
+    "@types/node-sass": "4.11.0",
+    "@blog/types-blog-scss": "*",
     "@types/react": "^17.0.13",
+    "node-sass": "4.13.0",
     "nodemon": "^2.0.12",
     "ts-node": "^10.0.0"
   },

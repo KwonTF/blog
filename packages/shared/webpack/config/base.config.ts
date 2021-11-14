@@ -12,6 +12,7 @@ export type GetBaseWebpackConfigArgs = {
 function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackConfigArgs): Configuration {
   const config: Configuration = {
     mode: 'development',
+    resolve: {extensions: ['.tsx', '.ts', '.mjs', '.js', '.json']},
     module: {
       rules: [
         {
@@ -36,7 +37,6 @@ function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackConfigArgs
         }
       ]
     },
-    resolve: {extensions: ['.tsx', '.ts', '.mjs', '.js', '.json']},
     optimization: {
       usedExports: true
     },
