@@ -1,5 +1,11 @@
 import React, {FC} from 'react'
 
-const PageArea: FC = () => <div>Page Area Will be Here</div>
+import {NewPage} from '@blog/admin/src/components/pages'
+
+const PageArea: FC = () => (
+  <div>
+    <NewPage />
+  </div>
+)
 
 export default PageArea
