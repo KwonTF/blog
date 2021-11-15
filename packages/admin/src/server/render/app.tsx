@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
 import {Context} from 'koa'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
+import {renderToStringWithData} from '@apollo/client/react/ssr'
 
 import logger from '@blog/shared/utils/logger'
 
@@ -18,7 +18,6 @@ type RenderAppRetrunType = {
 export async function renderApp({ctx}: SSRProps): Promise<RenderAppRetrunType> {
   let renderedString: string
   const {App} = ctx.state
-  ctx.state.routerContext = {}
 
   // CSS for all rendered React components
   const css = new Set()
@@ -26,7 +25,7 @@ export async function renderApp({ctx}: SSRProps): Promise<RenderAppRetrunType> {
   const insertCss = (...styles) => styles.forEach((style) => css.add(style._getCss()))
 
   try {
-    renderedString = await ReactDOMServer.renderToString(
+    renderedString = await renderToStringWithData(
       <StyleContext.Provider value={{insertCss}}>
         <App />
       </StyleContext.Provider>

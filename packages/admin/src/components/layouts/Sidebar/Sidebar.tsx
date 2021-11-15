@@ -8,8 +8,20 @@ const Sidebar: FC = () => {
 
   return (
     <div className={styles.sidebar}>
-      <button>Post Article</button>
-      <button>Edit Article</button>
+      <button
+        onClick={() => {
+          console.log('POST')
+        }}
+      >
+        Post Article
+      </button>
+      <button
+        onClick={() => {
+          console.log('EDIT')
+        }}
+      >
+        Edit Article
+      </button>
     </div>
   )
 }

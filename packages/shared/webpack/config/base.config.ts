@@ -3,7 +3,7 @@
 import {Configuration} from 'webpack'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
-import {getBabelPresetEnv} from './util'
+import {getBabelPresetEnv} from '../utils/getBabelPresetEnv'
 export type GetBaseWebpackConfigArgs = {
   tsConfigPath: string
   isClient?: boolean

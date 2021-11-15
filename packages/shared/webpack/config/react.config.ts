@@ -14,13 +14,20 @@ type GetReactWebpackConfigArgs = {
 export function getReactWebpackConfig({packagePath, entries, assetsPrefix, isDev}: GetReactWebpackConfigArgs): Configuration {
   const output = path.join(packagePath, './dist')
   const htmlWebpackConfig = getHtmlWebpackConfig({tsConfigPath: path.join(packagePath, 'tsconfig.json')})
-  const entryWithVendor = {...entries}
-  entryWithVendor.vendor = ['react', 'react-dom']
 
   return merge(htmlWebpackConfig, {
     mode: 'development',
     context: packagePath,
-    entry: entryWithVendor,
+    entry: Object.keys(entries || {}).reduce(
+      (prev, key) => {
+        // eslint-disable-next-line no-param-reassign
+        if (entries[key]) prev[key] = ['webpack-hot-middleware/client?timeout=2000', entries[key]].filter(Boolean)
+        return prev
+      },
+      {
+        vendor: ['react', 'react-dom']
+      }
+    ),
     target: 'web',
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     output: {
