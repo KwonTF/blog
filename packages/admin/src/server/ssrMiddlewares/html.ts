@@ -1,7 +1,13 @@
 import {Context} from 'koa'
+import {ChunkExtractor} from '@loadable/server'
+
+import {renderStyles} from '@blog/admin/src/server/render/styles'
+
 export async function htmlMiddleware(ctx: Context) {
-  const {clientConfig: config, clientConfigString, serverRenderer} = ctx?.state
-  const {renderedString: appString, css} = await serverRenderer({ctx})
+  const {entryPoints: entrypoints, clientConfig: config, clientConfigString, serverRenderer, webStatsFile} = ctx?.state
+  const styles = {}
+  const webExtractor = new ChunkExtractor({statsFile: webStatsFile, entrypoints})
+  const {renderedString: appString, css} = await serverRenderer({ctx, extractor: webExtractor, styles})
   if (ctx?.state?.routerContext?.url) {
     ctx.redirect(ctx.state.routerContext.url)
     return
@@ -15,6 +21,7 @@ export async function htmlMiddleware(ctx: Context) {
       <head>
         <meta charset="UTF-8">
         <style>${[...css].join('')}</style>
+        ${renderStyles(styles)}
       </head>
       <body>
         <div id="${config.appElementId}" style="min-height:100%; display:flex; flex-direction: column; flex-grow: 1;">${appString}</div>
@@ -23,6 +30,7 @@ export async function htmlMiddleware(ctx: Context) {
         window.__DEPLOY_ENV__ = "development";
         window.__APP_CONFIG__ = ${clientConfigString};
       </script>
+      ${webExtractor.getScriptTags()}
     </html>
   `
 }

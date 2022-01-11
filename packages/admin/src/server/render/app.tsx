@@ -1,13 +1,15 @@
 /* eslint-disable no-param-reassign */
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import {Context} from 'koa'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
-import {renderToStringWithData} from '@apollo/client/react/ssr'
+import {ChunkExtractor, ChunkExtractorManager} from '@loadable/server'
 
 import logger from '@blog/shared/utils/logger'
 
 type SSRProps = {
   ctx: Context
+  extractor: ChunkExtractor
 }
 
 type RenderAppRetrunType = {
@@ -15,7 +17,7 @@ type RenderAppRetrunType = {
   css: any
 }
 
-export async function renderApp({ctx}: SSRProps): Promise<RenderAppRetrunType> {
+export async function renderApp({ctx, extractor}: SSRProps): Promise<RenderAppRetrunType> {
   let renderedString: string
   const {App} = ctx.state
 
@@ -25,10 +27,12 @@ export async function renderApp({ctx}: SSRProps): Promise<RenderAppRetrunType> {
   const insertCss = (...styles) => styles.forEach((style) => css.add(style._getCss()))
 
   try {
-    renderedString = await renderToStringWithData(
-      <StyleContext.Provider value={{insertCss}}>
-        <App />
-      </StyleContext.Provider>
+    renderedString = await ReactDOMServer.renderToString(
+      <ChunkExtractorManager extractor={extractor}>
+        <StyleContext.Provider value={{insertCss}}>
+          <App />
+        </StyleContext.Provider>
+      </ChunkExtractorManager>
     )
   } catch (error) {
     logger.log(error)

@@ -4,4 +4,3 @@ export * from './server.config'
 export * from './ssr.config'
 
 export * from './types'
-export * from './util'

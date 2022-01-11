@@ -17,11 +17,15 @@ function getBaseWebpackConfig({tsConfigPath, isClient}: GetBaseWebpackConfigArgs
       rules: [
         {
           test: /\.(ts|js)x?$/,
-          loader: 'babel-loader',
-          options: {
-            presets: [getBabelPresetEnv({isClient}), '@babel/preset-react', '@babel/preset-typescript'],
-            plugins: ['@babel/plugin-proposal-class-properties']
-          },
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                presets: [getBabelPresetEnv({isClient}), '@babel/preset-react', '@babel/preset-typescript'],
+                plugins: ['@babel/plugin-proposal-class-properties']
+              }
+            }
+          ],
           exclude: function (requrirePath) {
             if (requrirePath.match(/node_modules/)) return true
             return false

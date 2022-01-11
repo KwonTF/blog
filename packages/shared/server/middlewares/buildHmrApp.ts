@@ -26,7 +26,7 @@ type buildAppArgs = {
 let clientDevMiddleWare
 let serverDevMiddleWare
 
-export default async function buildHmrApp({clientConfig, ssrServerConfig}: buildAppArgs): Promise<Middleware[]> {
+export async function buildHmrApp({clientConfig, ssrServerConfig}: buildAppArgs): Promise<Middleware[]> {
   const clientCompiler = webpack(clientConfig)
   const serverCompiler = webpack(ssrServerConfig)
 

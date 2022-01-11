@@ -1,4 +1,4 @@
-import webpack, { RuleSetLoader } from 'webpack'
+import webpack, {RuleSetLoader} from 'webpack'
 
 const findBabelPlugins = (baseConfig: webpack.Configuration) => {
   let babelRuleUse
@@ -6,10 +6,11 @@ const findBabelPlugins = (baseConfig: webpack.Configuration) => {
     const ruleUse = rule?.use as RuleSetLoader[]
     if (!(ruleUse?.length > 0) || !Array.isArray(ruleUse)) return
 
-    const result = ruleUse.find((ruleUse) => {
-      if (ruleUse.loader !== 'babel-loader') return false
-      if (ruleUse.options && typeof ruleUse.options !== 'string') {
-        if (ruleUse.options.plugins) return true
+    // eslint-disable-next-line consistent-return
+    const result = ruleUse.find((babelRule) => {
+      if (babelRule.loader !== 'babel-loader') return false
+      if (babelRule.options && typeof babelRule.options !== 'string') {
+        if (babelRule.options.plugins) return true
       }
     })
 

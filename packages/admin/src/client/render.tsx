@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {loadableReady} from '@loadable/component'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
 
 import App from '@blog/admin/src/app'
@@ -11,10 +12,12 @@ export const renderClient = () => {
     return () => removeCss.forEach((dispose) => dispose())
   }
 
-  ReactDOM.hydrate(
-    <StyleContext.Provider value={{insertCss}}>
-      <App />
-    </StyleContext.Provider>,
-    document.getElementById('app-root')
-  )
+  loadableReady(() => {
+    ReactDOM.hydrate(
+      <StyleContext.Provider value={{insertCss}}>
+        <App />
+      </StyleContext.Provider>,
+      document.getElementById('app-root')
+    )
+  })
 }

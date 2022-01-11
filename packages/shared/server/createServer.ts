@@ -83,7 +83,6 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
   })
 
   await Promise.all(preStartFunctions?.map((job) => job()) || [])
-  console.log(middlewares.length)
   middlewares.forEach((middleware) => app.use(middleware))
 
   app.on('error', (err, ctx) => {
