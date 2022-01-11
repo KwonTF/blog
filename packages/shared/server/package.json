@@ -4,7 +4,7 @@
     "license": "MIT",
     "dependencies": {
         "@koa/cors": "^3.1.0",
-        "koa": "2.11.0",
+        "koa": "^2.13.4",
         "koa-bodyparser": "^4.3.0",
         "koa-compress": "^5.1.0",
         "koa-router": "^10.1.1",
@@ -18,10 +18,10 @@
         "@types/koa-router": "^7.4.4",
         "@types/koa__cors": "^3.0.3",
         "fs-monkey": "^1.0.3",
-        "koa-webpack": "^5.3.0",
+        "koa-webpack": "^6.0.0",
         "koa-webpack-dev-middleware": "^2.0.2",
         "koa-webpack-hot-middleware": "^1.0.3",
-        "memfs": "^3.3.0",
+        "memfs": "^3.4.1",
         "memory-fs": "^0.5.0",
         "unionfs": "^4.4.0"
     }
