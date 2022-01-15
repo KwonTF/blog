@@ -7,7 +7,7 @@ import bodyParser from 'koa-bodyparser'
 
 import {AsyncFunction} from '@blog/shared/types'
 import logger from '@blog/shared-utils/logger'
-import xssCheck from '@blog/shared/server/middlewares/xssCheck'
+// import xssCheck from '@blog/shared/server/middlewares/xssCheck'
 
 let httpServer: http.Server
 let shutdownInitiated = false
@@ -68,7 +68,7 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
   // compress the response file to speed up
   app.use(compress())
   // check xss Script
-  app.use(xssCheck)
+  // app.use(xssCheck)
   // Filter CORS Problem
   // app.use(cors({origin: checkRequestOrigin(config.corsOrigins || [config.baseUrl])}))
   // parse Body
