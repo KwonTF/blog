@@ -3,11 +3,13 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import {Context} from 'koa'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
+import {ChunkExtractor, ChunkExtractorManager} from '@loadable/server'
 
 import logger from '@blog/shared/utils/logger'
 
 type SSRProps = {
   ctx: Context
+  extractor: ChunkExtractor
 }
 
 type RenderAppRetrunType = {
@@ -15,10 +17,9 @@ type RenderAppRetrunType = {
   css: any
 }
 
-export async function renderApp({ctx}: SSRProps): Promise<RenderAppRetrunType> {
+export async function renderApp({ctx, extractor}: SSRProps): Promise<RenderAppRetrunType> {
   let renderedString: string
   const {App} = ctx.state
-  ctx.state.routerContext = {}
 
   // CSS for all rendered React components
   const css = new Set()
@@ -27,9 +28,11 @@ export async function renderApp({ctx}: SSRProps): Promise<RenderAppRetrunType> {
 
   try {
     renderedString = await ReactDOMServer.renderToString(
-      <StyleContext.Provider value={{insertCss}}>
-        <App />
-      </StyleContext.Provider>
+      <ChunkExtractorManager extractor={extractor}>
+        <StyleContext.Provider value={{insertCss}}>
+          <App />
+        </StyleContext.Provider>
+      </ChunkExtractorManager>
     )
   } catch (error) {
     logger.log(error)

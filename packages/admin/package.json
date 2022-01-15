@@ -8,13 +8,17 @@
   "dependencies": {
     "@blog/shared": "0.1.0",
     "@blog/shared-client": "0.1.0",
+    "@loadable/component": "^5.15.2",
+    "@loadable/server": "^5.15.2",
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.3"
   },
-  "devDependencies": {
-    "webpack": "^4.44.2"
-  },
   "scripts": {
     "dev": "nodemon"
+  },
+  "devDependencies": {
+    "@types/loadable__component": "^5.13.4",
+    "@types/loadable__server": "^5.12.6",
+    "react-refresh": "^0.11.0"
   }
 }
