@@ -21,6 +21,7 @@ export function getServerWebpackConfig({context, entry, isLocal, tsConfigPath}: 
       entry: entry,
       target: 'node',
       output: {
+        globalObject: 'this',
         path: path.join(context, 'dist'),
         filename: isLocal ? 'index.[hash].js' : 'index.js',
         libraryTarget: 'commonjs'
