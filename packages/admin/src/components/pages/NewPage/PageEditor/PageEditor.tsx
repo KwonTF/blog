@@ -14,17 +14,23 @@ const PageEditor: FC<Props> = ({setHtmlString}) => {
   const [editorLoaded, setEditorLoaded] = useState(false)
   const {CKEditor, DocumentEditor} = editorRef.current || {}
 
-  const handleChange = useCallback((event, editor) => {
-    const data = editor?.getData()
-    if (!data) return
-    setHtmlString(data)
-  }, [])
+  const handleChange = useCallback(
+    (event, editor) => {
+      const data = editor?.getData()
+      if (!data) return
+      setHtmlString(data)
+    },
+    [setHtmlString]
+  )
 
-  const handleReady = useCallback((editor) => {
-    const data = editor?.getData()
-    if (!data) return
-    setHtmlString(data)
-  }, [])
+  const handleReady = useCallback(
+    (editor) => {
+      const data = editor?.getData()
+      if (!data) return
+      setHtmlString(data)
+    },
+    [setHtmlString]
+  )
 
   useEffect(() => {
     editorRef.current = {
