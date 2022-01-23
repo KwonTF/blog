@@ -1,8 +1,8 @@
 import React, {FC, useMemo} from 'react'
 import useStyles from 'isomorphic-style-loader/useStyles'
 
-import PhotoCollection from '../PhotoCollection'
 import styles from '../NewPage.scss'
+import PhotoCollection from '../PhotoCollection'
 
 interface Props {
   htmlString: string
@@ -10,20 +10,29 @@ interface Props {
 
 const PagePreview: FC<Props> = ({htmlString}) => {
   useStyles(styles)
-  const convertedString = useMemo(() => htmlString.split('<p>!@#</p>'), [htmlString])
-  console.log(convertedString)
+  const convertedString = useMemo(() => htmlString.split(new RegExp('(<p>!@#[0-9a-z]+#@!</p>)')), [htmlString])
 
-  if (convertedString.length < 1) {
+  if (htmlString.length < 1) {
     return null
   }
   return (
     <>
-      {convertedString.map((value, index) => (
-        <div key={`paragraph_${value.substr(0, 20)}_${index}`}>
-          <div dangerouslySetInnerHTML={{__html: value}} />
-          {index !== convertedString.length - 1 && <PhotoCollection />}
-        </div>
-      ))}
+      {convertedString.map((value, index) => {
+        if (value.startsWith('<p>!@#')) {
+          const [, mongoDocId] = value.split('#')
+          const mongoIdTest = new RegExp('[0-9a-z]+')
+          if (mongoIdTest.test(mongoDocId)) {
+            return <PhotoCollection collectionId={mongoDocId} key={`photoCollection_${mongoDocId}`} />
+          }
+          return null
+        }
+
+        return (
+          <div key={`paragraph_${value.substr(0, 20)}_${index}`}>
+            <div dangerouslySetInnerHTML={{__html: value}} />
+          </div>
+        )
+      })}
     </>
   )
 }
