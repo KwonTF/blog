@@ -5,9 +5,10 @@ import styles from '../NewPage.scss'
 
 interface Props {
   setHtmlString: Dispatch<SetStateAction<string>>
+  toUploadPage: Dispatch<SetStateAction<boolean>>
 }
 
-const PageEditor: FC<Props> = ({setHtmlString}) => {
+const PageEditor: FC<Props> = ({setHtmlString, toUploadPage}) => {
   useStyles(styles)
 
   const editorRef = useRef<any>()
@@ -49,7 +50,12 @@ const PageEditor: FC<Props> = ({setHtmlString}) => {
     )
   }
 
-  return editorLoaded && <CKEditor onReady={handleReady} onChange={handleChange} editor={DocumentEditor} data='<p>Hello From CKEDITOR</p>' />
+  return <>
+  {editorLoaded && <div>
+  <CKEditor onReady={handleReady} onChange={handleChange} editor={DocumentEditor} data='<p>~!@#infomation#@! for custom pictures~</p>' />
+  <button onClick={()=>toUploadPage(true)}> 사진 올리기</button>
+  </div>}
+  </>
 }
 
 export default PageEditor

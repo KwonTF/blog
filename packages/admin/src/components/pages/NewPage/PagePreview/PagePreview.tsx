@@ -10,7 +10,7 @@ interface Props {
 
 const PagePreview: FC<Props> = ({htmlString}) => {
   useStyles(styles)
-  const convertedString = useMemo(() => htmlString.split(new RegExp('(<p>!@#[0-9a-z]+#@!</p>)')), [htmlString])
+  const convertedString = useMemo(() => htmlString.split(new RegExp('(<p>!@#.+#@!</p>)')), [htmlString])
 
   if (htmlString.length < 1) {
     return null
@@ -20,7 +20,7 @@ const PagePreview: FC<Props> = ({htmlString}) => {
       {convertedString.map((value, index) => {
         if (value.startsWith('<p>!@#')) {
           const [, mongoDocId] = value.split('#')
-          const mongoIdTest = new RegExp('[0-9a-z]+')
+          const mongoIdTest = new RegExp('.+')
           if (mongoIdTest.test(mongoDocId)) {
             return <PhotoCollection collectionId={mongoDocId} key={`photoCollection_${mongoDocId}`} />
           }
