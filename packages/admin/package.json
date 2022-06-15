@@ -8,8 +8,10 @@
   "dependencies": {
     "@blog/shared": "0.1.0",
     "@blog/shared-client": "0.1.0",
+    "@ckeditor/ckeditor5-react": "^3.0.3",
     "@loadable/component": "^5.15.2",
-    "@loadable/server": "^5.15.2"
+    "@loadable/server": "^5.15.2",
+    "ckeditor5-custom-build": "file:/Users/user/blog/packages/admin/ckeditor5"
   },
   "scripts": {
     "dev": "nodemon"

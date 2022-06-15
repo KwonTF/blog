@@ -40,6 +40,7 @@ export function getReactWebpackConfig({packagePath, entries, assetsPrefix, isDev
     target: 'web',
     devtool: isDev ? 'cheap-module-source-map' : 'source-map',
     output: {
+      globalObject: 'this',
       filename: '[name].[hash].js',
       path: `${output}/assets/`,
       publicPath: `${assetsPrefix}/`
