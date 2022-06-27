@@ -86,6 +86,12 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'warn',
     '@typescript-eslint/no-empty-interface': 'warn',
     '@typescript-eslint/no-shadow': 'warn',
+    '@typescript-eslint/explicit-member-accessibility': [
+      'warn',
+      {
+        accessibility: 'no-public'
+      }
+    ],
 
     // off rules
     '@typescript-eslint/explicit-function-return-type': 'off',
