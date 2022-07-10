@@ -1,0 +1,17 @@
+{
+    "watch": [
+        "./src/**"
+    ],
+    "ignore": [
+        "node_modules"
+    ],
+    "exec": "ts-node --transpile-only --project tsconfig.json src/index.dev.ts",
+    "verbose": true,
+    "ext": "js ts tsx graphql",
+    "signal": "SIGINT",
+    "delay": "500",
+    "env": {
+        "NODE_ENV": "development",
+        "LOCALGEN": true
+    }
+}

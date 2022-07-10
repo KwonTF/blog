@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "@blog/shard": ["../shared"]
+    }
+  },
+  "include": ["../shared/server/**/*.ts", "../shared/utils/**/*.ts", "../shared/types/**/*.ts", "./src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
