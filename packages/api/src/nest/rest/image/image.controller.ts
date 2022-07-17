@@ -12,7 +12,6 @@ export class ImageController {
   @Get()
   async getImage() {
     const result = await this.gradeModel.findOne()
-    console.log(result)
-    return ['image1', 'image2']
+    return result?.scores.map(({type}) => type)
   }
 }
