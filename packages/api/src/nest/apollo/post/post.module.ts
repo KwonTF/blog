@@ -1,11 +1,11 @@
 import {Module} from '@nestjs/common'
-import {MongooseModule} from '@nestjs/mongoose'
 
-import {Grades, GradesSchema} from '../../../schema'
+import {SchemaModule} from '@blog/api/src/schema'
+
 import {resolvers} from './post.resolver'
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: Grades.name, schema: GradesSchema}])],
+  imports: [SchemaModule],
   providers: [...resolvers]
 })
 export class PostModule {}
