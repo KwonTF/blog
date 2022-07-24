@@ -2,5 +2,11 @@
   "name": "@blog/shared-utils",
   "version": "1.0.0",
   "license": "MIT",
-  "author": "KwonTF"
+  "author": "KwonTF",
+  "scripts": {
+    "encrypt": "dotenv -e .env -- ts-node ./encrypt/index.ts"
+  },
+  "dependencies": {
+    "@blog/shared": "*"
+  }
 }
