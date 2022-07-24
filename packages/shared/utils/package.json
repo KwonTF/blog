@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "KwonTF",
   "scripts": {
-    "encrypt": "dotenv -e .env -- ts-node ./encrypt/index.ts"
+    "encrypt": "dotenv -e ../../../.env -- ts-node ./encrypt/script.ts"
   },
   "dependencies": {
     "@blog/shared": "*"

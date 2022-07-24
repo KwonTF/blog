@@ -5,7 +5,7 @@
     "ignore": [
         "node_modules"
     ],
-    "exec": "ts-node --transpile-only --project tsconfig.json src/index.dev.ts",
+    "exec": "dotenv -e ../../.env -- ts-node --transpile-only --project tsconfig.json src/index.dev.ts",
     "verbose": true,
     "ext": "js ts tsx graphql",
     "signal": "SIGINT",

@@ -8,6 +8,7 @@ export async function createNestServer(port: number): Promise<{app: INestApplica
   return {
     app,
     start: () => {
+      // eslint-disable-next-line no-console
       console.log(`Server listen at http://localhost:${port}`)
       app.listen(port)
     }

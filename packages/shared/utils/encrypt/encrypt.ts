@@ -1,14 +1,21 @@
 import crypto from 'crypto'
 
-import serverConfig from '@blog/shared/config/environment'
+import {ServerConfig} from '@blog/shared/config/environment'
 
 const ENCRYPT_ALGORITHEM = 'aes-256-gcm'
 
 function getKeyBuffer() {
-  const {encKey} = serverConfig
+  const {encKey} = ServerConfig
   if (!encKey) throw new Error('Key is Unavailable in dotenv')
   // 32 byte needed
   return Buffer.from(encKey, 'utf8')
+}
+
+export function setEncKey() {
+  if (!process.env.ENC_KEY) {
+    throw new Error('env value is unavailable')
+  }
+  ServerConfig.encKey = process.env.ENC_KEY
 }
 
 export function encryptData(text?: string) {
@@ -34,4 +41,12 @@ export function decryptData(data: string) {
   decipher.setAuthTag(tag)
 
   return decipher.update(encrypted, undefined, 'utf8') + decipher.final('utf8')
+}
+
+export function getDecryptedData(encryptedData: string) {
+  if (!ServerConfig?.encKey) {
+    setEncKey()
+  }
+
+  return decryptData(encryptedData)
 }
