@@ -19,6 +19,7 @@
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^8.4.7",
     "apollo-server-express": "^3.9.0",
+    "aws-sdk": "^2.1185.0",
     "graphql": "^16.5.0",
     "mongoose": "^6.4.4",
     "reflect-metadata": "^0.1.13",
