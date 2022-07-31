@@ -10,11 +10,12 @@ interface Props {
 
 const PagePreview: FC<Props> = ({htmlString}) => {
   useStyles(styles)
-  const convertedString = useMemo(() => htmlString.split(new RegExp('(<p>!@#.+#@!</p>)')), [htmlString])
+  const convertedString = useMemo(() => htmlString?.split(new RegExp('(<p>!@#.+#@!</p>)')), [htmlString])
 
-  if (htmlString.length < 1) {
+  if (htmlString?.length < 1) {
     return null
   }
+
   return (
     <>
       {convertedString.map((value, index) => {

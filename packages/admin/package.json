@@ -6,11 +6,13 @@
   "author": "KwonTF <ktf1008@naver.com>",
   "license": "MIT",
   "dependencies": {
-    "@blog/shared": "0.1.0",
-    "@blog/shared-client": "0.1.0",
+    "@blog/shared": "*",
+    "@blog/shared-client": "*",
+    "@blog/shared-utils": "*",
     "@ckeditor/ckeditor5-react": "^3.0.3",
     "@loadable/component": "^5.15.2",
     "@loadable/server": "^5.15.2",
+    "@tinymce/tinymce-react": "^4.1.0",
     "ckeditor5-custom-build": "file:/Users/user/blog/packages/admin/ckeditor5"
   },
   "scripts": {
