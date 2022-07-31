@@ -17,6 +17,4 @@ export function getPaths(root: string): Paths {
 }
 
 const root = path.resolve(__dirname, '../')
-const sharedPaths = getPaths(root)
-
-export default sharedPaths
+export const sharedPaths = getPaths(root)

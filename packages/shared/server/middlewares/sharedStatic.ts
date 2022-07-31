@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import Router from 'koa-router'
 
-import sharedPaths from '@blog/shared/config/paths'
+import {sharedPaths} from '@blog/shared/config'
 
 import {getStaticResourceMiddleware} from './staticResource'
 

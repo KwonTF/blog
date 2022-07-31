@@ -1,0 +1,1 @@
+export {getDecryptedData} from './encrypt'
