@@ -16,10 +16,13 @@
     "@nestjs/common": "^8.4.7",
     "@nestjs/core": "^8.4.7",
     "@nestjs/graphql": "^10.0.16",
+    "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^8.4.7",
     "apollo-server-express": "^3.9.0",
     "graphql": "^16.5.0",
-    "reflect-metadata": "^0.1.13"
+    "mongoose": "^6.4.4",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.5"
   },
   "devDependencies": {
     "@graphql-tools/load-files": "^6.5.4",
