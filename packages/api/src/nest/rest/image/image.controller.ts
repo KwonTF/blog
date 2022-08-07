@@ -5,14 +5,13 @@ import {FilesInterceptor} from '@nestjs/platform-express'
 import * as AWS from 'aws-sdk'
 
 import {getDecryptedData} from '@blog/shared-utils/encrypt'
-import {ServerConfig} from '@blog/shared/config'
 
 import {Grades, GradesDocument} from '@blog/api/src/schema'
 
-const ACC_KEY = getDecryptedData(ServerConfig.encrypted.s3.accessKey)
-const SECURE_ACC_KEY = getDecryptedData(ServerConfig.encrypted.s3.secureAccessKey)
-const BUCKET_NAME = getDecryptedData(ServerConfig.encrypted.s3.bucketName)
-const S3_REGION = getDecryptedData(ServerConfig.encrypted.s3.region)
+const ACC_KEY = getDecryptedData(process.env.S3_ACC_KEY)
+const SECURE_ACC_KEY = getDecryptedData(process.env.S3_SEC_ACC_KEY)
+const BUCKET_NAME = getDecryptedData(process.env.S3_BUCKET_NAME)
+const S3_REGION = getDecryptedData(process.env.S3_REGION)
 
 @Controller('image')
 export class ImageController {
