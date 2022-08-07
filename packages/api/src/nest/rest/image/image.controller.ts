@@ -1,15 +1,16 @@
 import {Get, Post, UseInterceptors, Controller, UploadedFiles} from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import {Model} from 'mongoose'
+import fetch from 'node-fetch'
 import {FilesInterceptor} from '@nestjs/platform-express'
-import * as AWS from 'aws-sdk'
+import {PutObjectCommand, S3Client} from '@aws-sdk/client-s3'
+import {fromIni} from '@aws-sdk/credential-providers'
+import {getSignedUrl} from '@aws-sdk/s3-request-presigner'
 
 import {getDecryptedData} from '@blog/shared-utils/encrypt'
 
 import {Grades, GradesDocument} from '@blog/api/src/schema'
 
-const ACC_KEY = getDecryptedData(process.env.S3_ACC_KEY)
-const SECURE_ACC_KEY = getDecryptedData(process.env.S3_SEC_ACC_KEY)
 const BUCKET_NAME = getDecryptedData(process.env.S3_BUCKET_NAME)
 const S3_REGION = getDecryptedData(process.env.S3_REGION)
 
@@ -26,26 +27,22 @@ export class ImageController {
   @Post()
   @UseInterceptors(FilesInterceptor('files'))
   async postImage(@UploadedFiles() files: Array<Express.Multer.File>) {
-    AWS.config.update({
-      credentials: {
-        accessKeyId: ACC_KEY,
-        secretAccessKey: SECURE_ACC_KEY
-      }
+    const s3Client = new S3Client({
+      region: S3_REGION,
+      credentials: fromIni({filepath: '../../../.aws/credentials', configFilepath: '../../../.aws/config'})
     })
 
     try {
-      const S3Service = new AWS.S3()
       for (const file of files) {
-        const fileKey = `${Date.now() + file.originalname}`
-        await S3Service.putObject({
-          Key: fileKey,
-          Body: file.buffer,
-          Bucket: BUCKET_NAME
-        }).promise()
+        const bucketParams = {
+          Bucket: BUCKET_NAME,
+          Key: `${Date.now() + file.originalname}`,
+          Body: file.buffer
+        }
+        const command = new PutObjectCommand(bucketParams)
+        const signedUrl = await getSignedUrl(s3Client, command, {expiresIn: 3600})
 
-        const signedUrl = `https://${BUCKET_NAME}.${S3_REGION}.amazonaws.com/${fileKey}`
-        // eslint-disable-next-line no-console
-        console.log(signedUrl)
+        await fetch(signedUrl, {method: 'PUT', body: bucketParams.Body})
       }
     } catch (error) {
       // eslint-disable-next-line no-console

@@ -11,6 +11,9 @@
     "prebuild": "rimraf dist && ts-node ./src/graphql/merge.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.142.0",
+    "@aws-sdk/credential-providers": "^3.142.0",
+    "@aws-sdk/s3-request-presigner": "^3.142.0",
     "@blog/shared": "*",
     "@nestjs/apollo": "^10.0.16",
     "@nestjs/common": "^8.4.7",
@@ -19,9 +22,9 @@
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/platform-express": "^8.4.7",
     "apollo-server-express": "^3.9.0",
-    "aws-sdk": "^2.1185.0",
     "graphql": "^16.5.0",
     "mongoose": "^6.4.4",
+    "node-fetch": "^3.2.10",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
   },
