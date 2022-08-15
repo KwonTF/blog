@@ -16,7 +16,7 @@
     "ckeditor5-custom-build": "file:/Users/user/blog/packages/admin/ckeditor5"
   },
   "scripts": {
-    "dev": "nodemon"
+    "dev": "dotenv -e ../../.env nodemon"
   },
   "devDependencies": {
     "@types/loadable__component": "^5.13.4",

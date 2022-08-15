@@ -2,12 +2,9 @@ import React, {FC, useRef, Dispatch, SetStateAction} from 'react'
 import {Editor} from '@tinymce/tinymce-react'
 import useStyles from 'isomorphic-style-loader/useStyles'
 
-import {getDecryptedData} from '@blog/shared-utils/encrypt'
-import {ServerConfig} from '@blog/shared/config/environment'
+import {useDotEnvContext} from '@blog/admin/src/components/contexts/DotEnvContext'
 
 import styles from '../NewPage.scss'
-
-const apiKey = getDecryptedData(ServerConfig.encrypted.tinyMcp)
 
 interface Props {
   setHtmlString: Dispatch<SetStateAction<string>>
@@ -17,11 +14,12 @@ interface Props {
 const PageEditor: FC<Props> = ({setHtmlString, toUploadPage}) => {
   useStyles(styles)
   const editorRef = useRef<any>()
+  const {tiny_mcp} = useDotEnvContext()
 
   return (
     <div>
       <Editor
-        apiKey={apiKey}
+        apiKey={tiny_mcp}
         onInit={(evt, editor) => (editorRef.current = editor)}
         onChange={(evt, editor) => setHtmlString(editor.getContent())}
         initialValue='<p>~!@#infomation#@! for custom pictures~</p>'
