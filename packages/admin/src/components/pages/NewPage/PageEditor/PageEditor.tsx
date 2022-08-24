@@ -2,8 +2,6 @@ import React, {FC, useRef, Dispatch, SetStateAction} from 'react'
 import {Editor} from '@tinymce/tinymce-react'
 import useStyles from 'isomorphic-style-loader/useStyles'
 
-import {useDotEnvContext} from '@blog/admin/src/components/contexts/DotEnvContext'
-
 import styles from '../NewPage.scss'
 
 interface Props {
@@ -14,8 +12,9 @@ interface Props {
 const PageEditor: FC<Props> = ({setHtmlString, toUploadPage}) => {
   useStyles(styles)
   const editorRef = useRef<any>()
-  const {tiny_mcp} = useDotEnvContext()
+  const {tiny_mcp} = global?.['__ENV_VALUES__'] || {}
 
+  if (!tiny_mcp) return null
   return (
     <div>
       <Editor

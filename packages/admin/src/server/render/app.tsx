@@ -7,8 +7,6 @@ import {ChunkExtractor, ChunkExtractorManager} from '@loadable/server'
 
 import logger from '@blog/shared/utils/logger'
 
-import {DotEnvContextProvider} from '@blog/admin/src/components/contexts/DotEnvContext'
-
 type SSRProps = {
   ctx: Context
   extractor: ChunkExtractor
@@ -29,12 +27,11 @@ export async function renderApp({ctx, extractor}: SSRProps): Promise<RenderAppRe
   const insertCss = (...styles) => styles.forEach((style) => css.add(style._getCss()))
 
   try {
+    global['__ENV_VALUES__'] = JSON.parse(ctx?.state?.envValues || {})
     renderedString = await ReactDOMServer.renderToString(
       <ChunkExtractorManager extractor={extractor}>
         <StyleContext.Provider value={{insertCss}}>
-          <DotEnvContextProvider values={ctx?.state?.envValues}>
-            <App />
-          </DotEnvContextProvider>
+          <App />
         </StyleContext.Provider>
       </ChunkExtractorManager>
     )
