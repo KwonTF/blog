@@ -36,8 +36,8 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 'error',
 
     // warn rules
+    'consistent-return': 'warn',
     'prefer-destructuring': 'warn',
-    'no-underscore-dangle': 'warn',
     'newline-per-chained-call': 'warn',
     'camelcase': 'warn',
     'no-useless-constructor': 'warn',
@@ -64,7 +64,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     'prettier/prettier': 'off',
-    'consistent-return': 'warn',
+    'no-underscore-dangle': 'off',
 
     // typescript rules
     // error rules

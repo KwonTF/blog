@@ -2,6 +2,7 @@ import path from 'path'
 import {Context} from 'koa'
 
 import sharedClientConfig from '@blog/shared/client/config'
+import {getDecryptedData} from '@blog/shared/utils/encrypt'
 
 import paths, {root} from '@blog/admin/config/paths'
 import config from '@blog/admin/config'
@@ -18,7 +19,8 @@ function getAppSettings({isIE}: {isIE?: boolean}) {
     clientConfig,
     clientConfigString: configString,
     webStatsFile: path.resolve(root, paths.scripts, './assets/loadable-stats.json'),
-    entryPoints: [isIE ? 'ie' : 'client']
+    entryPoints: [isIE ? 'ie' : 'client'],
+    envValues: JSON.stringify({tiny_mcp: getDecryptedData(process.env.TINY_MCP_KEY)})
   }
 }
 

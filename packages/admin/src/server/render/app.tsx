@@ -27,6 +27,7 @@ export async function renderApp({ctx, extractor}: SSRProps): Promise<RenderAppRe
   const insertCss = (...styles) => styles.forEach((style) => css.add(style._getCss()))
 
   try {
+    global['__ENV_VALUES__'] = JSON.parse(ctx?.state?.envValues || {})
     renderedString = await ReactDOMServer.renderToString(
       <ChunkExtractorManager extractor={extractor}>
         <StyleContext.Provider value={{insertCss}}>
