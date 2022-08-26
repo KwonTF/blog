@@ -1,15 +1,15 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
 import {Date, Document, SchemaTypes, Types} from 'mongoose'
 
-export type PostsDocument = Posts & Document
+export type PostsDocument = PostModel & Document
 
-@Schema()
-export class Posts {
+@Schema({collection: 'posts'})
+export class PostModel {
   @Prop(SchemaTypes.ObjectId)
   author: Types.ObjectId
 
   @Prop(String)
-  thumbnail: string
+  thumbnail?: string
 
   @Prop(String)
   title: string
@@ -18,10 +18,10 @@ export class Posts {
   body: string
 
   @Prop(SchemaTypes.ObjectId)
-  backPost: Types.ObjectId
+  backPost?: Types.ObjectId
 
   @Prop(SchemaTypes.ObjectId)
-  nextPost: Types.ObjectId
+  nextPost?: Types.ObjectId
 
   @Prop(SchemaTypes.ObjectId)
   group?: Types.ObjectId
@@ -30,22 +30,22 @@ export class Posts {
   createdDate: Date
 
   @Prop(SchemaTypes.Date)
-  editedDate: Date
+  editedDate?: Date
 
   @Prop(Number)
   viewCount: number
 
   @Prop([String])
-  tags: string[]
+  tags?: string[]
 
   @Prop(Number)
-  difficulty: number
+  difficulty?: number
 
   @Prop({type: [{desc: {type: String}, cards: {type: {url: {type: String}, desc: {type: String}, color: {type: String}, textColor: {type: String}}}}]})
-  flickItems: {desc: string; cards: {url: string; desc: string; color: string; textColor: string}}[]
+  flickItems?: {desc: string; cards: {url: string; desc: string; color: string; textColor: string}[]}[]
 
   @Prop({type: [{url: {type: String}, desc: {type: String}, color: {type: String}, textColor: {type: String}}]})
-  cards: {url: string; desc: string; color: string; textColor: string}[]
+  cards?: {url: string; desc: string; color: string; textColor: string}[]
 }
 
-export const PostsSchema = SchemaFactory.createForClass(Posts)
+export const PostsSchema = SchemaFactory.createForClass(PostModel)

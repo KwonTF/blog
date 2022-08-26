@@ -1,5 +1,24 @@
 type Post {
-  author: String
+  id: ID!
+  author: String!
+  thumbnail: String
+  title: String!
+  body: String!
+  backPost: Post
+  nextPost: Post
+  group: String
+  createdDate: DateTime!
+  editedDate: DateTime
+  viewCount: Int!
+  tags: [String!]
+  difficulty: Int
+  flickItems: [FlickItem!]
+  cards: [Card!]
+}
+
+type FlickItem {
+  desc: String
+  cards: [Card!]
 }
 
 type Query {
