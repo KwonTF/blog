@@ -1,9 +1,9 @@
 import {Module} from '@nestjs/common'
 import {MongooseModule} from '@nestjs/mongoose'
 
-import {PostModel, PostsSchema} from './posts.schema'
+import {ArticleModel, ArticlesSchema} from './articles.schema'
 
-const MongooseSchemas = MongooseModule.forFeature([{name: PostModel.name, schema: PostsSchema}])
+const MongooseSchemas = MongooseModule.forFeature([{name: ArticleModel.name, schema: ArticlesSchema}])
 
 @Module({
   imports: [MongooseSchemas],

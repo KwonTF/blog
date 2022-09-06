@@ -1,0 +1,41 @@
+type Article {
+  id: ID!
+  author: ID!
+  thumbnail: String
+  title: String!
+  body: String!
+  backArticle: Article
+  nextArticle: Article
+  group: String
+  createdDate: DateTime!
+  editedDate: DateTime
+  viewCount: Int!
+  tags: [String!]
+  difficulty: Int
+  flickItems: [FlickItem!]
+  cards: [Card!]
+}
+
+type FlickItem {
+  desc: String
+  cards: [Card!]
+}
+
+input ArticleInput {
+  author: String!
+  thumbnail: String
+  title: String!
+  body: String!
+  backArticle: ID
+  nextArticle: ID
+  group: String
+  tags: [String!]
+}
+
+type Query {
+  articles: [Article!]!
+}
+
+type Mutation {
+  postArticle(input: ArticleInput): Article
+}

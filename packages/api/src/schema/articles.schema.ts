@@ -1,10 +1,10 @@
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
 import {Date, Document, SchemaTypes, Types} from 'mongoose'
 
-export type PostsDocument = PostModel & Document
+export type ArticlesDocument = ArticleModel & Document
 
 @Schema({collection: 'posts'})
-export class PostModel {
+export class ArticleModel {
   @Prop(SchemaTypes.ObjectId)
   author: Types.ObjectId
 
@@ -18,10 +18,10 @@ export class PostModel {
   body: string
 
   @Prop(SchemaTypes.ObjectId)
-  backPost?: Types.ObjectId
+  backArticle?: Types.ObjectId
 
   @Prop(SchemaTypes.ObjectId)
-  nextPost?: Types.ObjectId
+  nextArticle?: Types.ObjectId
 
   @Prop(SchemaTypes.ObjectId)
   group?: Types.ObjectId
@@ -48,4 +48,4 @@ export class PostModel {
   cards?: {url: string; desc: string; color: string; textColor: string}[]
 }
 
-export const PostsSchema = SchemaFactory.createForClass(PostModel)
+export const ArticlesSchema = SchemaFactory.createForClass(ArticleModel)

@@ -8,18 +8,18 @@ import {getSignedUrl} from '@aws-sdk/s3-request-presigner'
 
 import {getDecryptedData} from '@blog/shared-utils/encrypt'
 
-import {PostModel, PostsDocument} from '@blog/api/src/schema/posts.schema'
+import {ArticleModel, ArticlesDocument} from '@blog/api/src/schema/articles.schema'
 
 const BUCKET_NAME = getDecryptedData(process.env.S3_BUCKET_NAME)
 const S3_REGION = getDecryptedData(process.env.S3_REGION)
 
 @Controller('image')
 export class ImageController {
-  constructor(@InjectModel(PostModel.name) private postModel: Model<PostsDocument>) {}
+  constructor(@InjectModel(ArticleModel.name) private articleModel: Model<ArticlesDocument>) {}
 
   @Get()
   async getImage() {
-    const result = await this.postModel.findOne()
+    const result = await this.articleModel.findOne()
     return result
   }
 
