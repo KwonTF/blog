@@ -3,7 +3,7 @@ import {Date, Document, SchemaTypes, Types} from 'mongoose'
 
 export type ArticlesDocument = ArticleModel & Document
 
-@Schema({collection: 'posts'})
+@Schema({collection: 'articles'})
 export class ArticleModel {
   @Prop(SchemaTypes.ObjectId)
   author: Types.ObjectId
