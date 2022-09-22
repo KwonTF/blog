@@ -1,7 +1,0 @@
-type Post {
-  author: String
-}
-
-type Query {
-  posts: [Post!]!
-}

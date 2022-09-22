@@ -8,6 +8,6 @@ import {GQLModules} from './nest/apollo'
 
 const mongoDBConnectUrl = getDecryptedData(process.env.MONGO_DB_KEY)
 @Module({
-  imports: [MongooseModule.forRoot(mongoDBConnectUrl, {dbName: 'sample_training'}), GQLModules, RestModules]
+  imports: [MongooseModule.forRoot(mongoDBConnectUrl, {dbName: 'blog'}), GQLModules, RestModules]
 })
 export class AppModule {}

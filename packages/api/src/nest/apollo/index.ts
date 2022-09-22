@@ -4,11 +4,11 @@ import {GraphQLModule} from '@nestjs/graphql'
 
 import {schemaPath} from '@blog/api/src/graphql/merge'
 
-import {PostModule} from './post/post.module'
+import {ArticleModule} from './article/article.module'
 
 @Module({
   imports: [
-    PostModule,
+    ArticleModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: [schemaPath],

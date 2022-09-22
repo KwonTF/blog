@@ -1,7 +1,6 @@
 import {Get, Post, UseInterceptors, Controller, UploadedFiles} from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import {Model} from 'mongoose'
-import fetch from 'node-fetch'
 import {FilesInterceptor} from '@nestjs/platform-express'
 import {PutObjectCommand, S3Client} from '@aws-sdk/client-s3'
 import {fromIni} from '@aws-sdk/credential-providers'
@@ -9,19 +8,19 @@ import {getSignedUrl} from '@aws-sdk/s3-request-presigner'
 
 import {getDecryptedData} from '@blog/shared-utils/encrypt'
 
-import {Grades, GradesDocument} from '@blog/api/src/schema'
+import {ArticleModel, ArticlesDocument} from '@blog/api/src/schema/articles.schema'
 
 const BUCKET_NAME = getDecryptedData(process.env.S3_BUCKET_NAME)
 const S3_REGION = getDecryptedData(process.env.S3_REGION)
 
 @Controller('image')
 export class ImageController {
-  constructor(@InjectModel(Grades.name) private gradeModel: Model<GradesDocument>) {}
+  constructor(@InjectModel(ArticleModel.name) private articleModel: Model<ArticlesDocument>) {}
 
   @Get()
   async getImage() {
-    const result = await this.gradeModel.findOne()
-    return result?.scores.map(({type}) => type)
+    const result = await this.articleModel.findOne()
+    return result
   }
 
   @Post()

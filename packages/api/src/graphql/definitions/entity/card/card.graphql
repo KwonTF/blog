@@ -1,0 +1,6 @@
+type Card {
+  url: String!
+  desc: String
+  color: String
+  textColor: String
+}

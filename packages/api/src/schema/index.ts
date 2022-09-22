@@ -1,11 +1,9 @@
 import {Module} from '@nestjs/common'
 import {MongooseModule} from '@nestjs/mongoose'
 
-import {Grades, GradesSchema} from './grades.schema'
+import {ArticleModel, ArticlesSchema} from './articles.schema'
 
-export * from './grades.schema'
-
-const MongooseSchemas = MongooseModule.forFeature([{name: Grades.name, schema: GradesSchema}])
+const MongooseSchemas = MongooseModule.forFeature([{name: ArticleModel.name, schema: ArticlesSchema}])
 
 @Module({
   imports: [MongooseSchemas],
