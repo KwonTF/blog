@@ -9,7 +9,7 @@ export const getCodegenOptions = () => {
   return {
     schema: schemaPath,
     generates: {
-      [`${generatedPath}/graphql-types.tsx`]: {
+      [`${generatedPath}/graphql-types.ts`]: {
         documents: [path.join(root, '../src/**/*.graphql')],
         plugins: ['typescript', 'typescript-operations', 'typescript-react-query'],
         options: {
