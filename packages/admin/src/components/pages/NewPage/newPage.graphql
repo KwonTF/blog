@@ -1,0 +1,11 @@
+mutation postArticle($input: ArticleInput) {
+  postArticle(input: $input) {
+    id
+    author
+    title
+    body
+    group
+    tags
+    viewCount
+  }
+}

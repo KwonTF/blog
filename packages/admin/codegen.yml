@@ -1,0 +1,11 @@
+schema: './src/__generated__'
+documents: './src/**/*.graphql'
+generates:
+  ./generates.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher:
+        endpoint: 'http://localhost:765/graphql'

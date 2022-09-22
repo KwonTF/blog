@@ -5,6 +5,7 @@
     "target": "es6",
     "lib": ["ES2020", "DOM"],
     "noImplicitThis": false,
+    "incremental": true,
     "strict": false,
     "paths": {
       "@blog/admin/*": ["packages/admin/*"],
