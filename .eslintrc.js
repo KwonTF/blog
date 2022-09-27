@@ -99,7 +99,11 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
 
-    //import Rules
+    // React Rules
+    // warn rules
+    'react-hooks/exhaustive-deps': 'warn',
+
+    // import Rules
     // error rules
     'import/order': [
       'error',

@@ -1,4 +1,4 @@
-import React, {FC, useMemo} from 'react'
+import React, {FC, useMemo, useState, useCallback} from 'react'
 import useStyles from 'isomorphic-style-loader/useStyles'
 
 import PhotoUpload from './PhotoUpload'
@@ -28,10 +28,19 @@ const PhotoUploadPage: FC<Props> = ({htmlString}) => {
     return splitedHtmlItems || []
   }, [htmlString])
 
+  const [images, setImages] = useState<FileList[]>(new Array(customAreas.length))
+  const setMedia = useCallback((input: FileList, index: number) => {
+    setImages((items) => {
+      const tempItems = items
+      tempItems[index] = input
+      return tempItems
+    })
+  }, [])
+
   return (
     <>
       {customAreas.map((comment, index) => (
-        <PhotoUpload comment={comment} key={`${index}_${comment}`} />
+        <PhotoUpload key={`${index}_${comment}`} index={index} comment={comment} setMedia={setMedia} />
       ))}
     </>
   )
