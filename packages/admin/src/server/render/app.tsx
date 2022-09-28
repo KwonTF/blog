@@ -1,13 +1,16 @@
 /* eslint-disable no-param-reassign */
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import {QueryClient, QueryClientProvider, Hydrate, DehydratedState} from '@tanstack/react-query'
 import {Context} from 'koa'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
 import {ChunkExtractor, ChunkExtractorManager} from '@loadable/server'
 
 import logger from '@blog/shared/utils/logger'
 
-type SSRProps = {
+export type SSRProps = {
+  reactQueryClient: QueryClient
+  dehydratedState: DehydratedState
   ctx: Context
   extractor: ChunkExtractor
 }
@@ -17,7 +20,7 @@ type RenderAppRetrunType = {
   css: any
 }
 
-export async function renderApp({ctx, extractor}: SSRProps): Promise<RenderAppRetrunType> {
+export async function renderApp({ctx, extractor, reactQueryClient, dehydratedState}: SSRProps): Promise<RenderAppRetrunType> {
   let renderedString: string
   const {App} = ctx.state
 
@@ -30,9 +33,13 @@ export async function renderApp({ctx, extractor}: SSRProps): Promise<RenderAppRe
     global['__ENV_VALUES__'] = JSON.parse(ctx?.state?.envValues || {})
     renderedString = await ReactDOMServer.renderToString(
       <ChunkExtractorManager extractor={extractor}>
-        <StyleContext.Provider value={{insertCss}}>
-          <App />
-        </StyleContext.Provider>
+        <QueryClientProvider client={reactQueryClient}>
+          <Hydrate state={dehydratedState}>
+            <StyleContext.Provider value={{insertCss}}>
+              <App />
+            </StyleContext.Provider>
+          </Hydrate>
+        </QueryClientProvider>
       </ChunkExtractorManager>
     )
   } catch (error) {
