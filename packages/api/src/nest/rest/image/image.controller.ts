@@ -1,4 +1,4 @@
-import {Get, Post, UseInterceptors, Controller, UploadedFiles} from '@nestjs/common'
+import {Get, Post, UseInterceptors, Controller, UploadedFiles, Header} from '@nestjs/common'
 import {InjectModel} from '@nestjs/mongoose'
 import {Model} from 'mongoose'
 import {FilesInterceptor} from '@nestjs/platform-express'
@@ -17,6 +17,7 @@ const S3_REGION = getDecryptedData(process.env.S3_REGION)
 export class ImageController {
   constructor(@InjectModel(ArticleModel.name) private articleModel: Model<ArticlesDocument>) {}
 
+  @Header('Access-Control-Allow-Origin', '*')
   @Get()
   async getImage() {
     const result = await this.articleModel.findOne()
