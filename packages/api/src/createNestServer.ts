@@ -1,5 +1,6 @@
 import {INestApplication} from '@nestjs/common'
 import {NestFactory} from '@nestjs/core'
+import cors from 'cors'
 
 import {AppModule} from './app.module'
 
@@ -21,6 +22,12 @@ export async function createNestServer({port, bootingJobs, shutdownJobs}: Create
   }
 
   const app = await NestFactory.create(AppModule)
+  app.use(
+    cors({
+      origin: 'http://localhost:7650'
+    })
+  )
+
   const shutdownPromise = Promise.all(shutdownJobs?.map((job) => job()) || [])
 
   for (const TRIGGER of SHUTDOWN_TRIGGERS) {

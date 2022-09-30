@@ -59,16 +59,6 @@ async function createServer(option: CreateServerOption): Promise<{app: any; star
   // check xss Script
   // app.use(xssCheck)
 
-  // Filter CORS Problem
-  // app.use(
-  //   cors({
-  //     origin: (ctx: Context) => {
-  //       const origin = ctx.get('origin')
-  //       return origin
-  //     }
-  //   })
-  // )
-
   // parse Body
   app.use(
     bodyParser({
