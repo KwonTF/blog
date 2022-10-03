@@ -3,11 +3,10 @@ import axios from 'axios'
 import {retryAsyncFunction} from '@blog/shared/utils/promise'
 
 export async function uploadImages(images: FileList) {
+  const body = new FormData()
   for (let index = 0; index < images.length; index++) {
-    try {
-      await retryAsyncFunction<void>(async () => {
-        await axios.post('http://localhost:765/image', {picture: images.item(index)})
-      }, 3)
-    } catch (error) {}
+    const file = images.item(index)
+    body.append('files', file)
   }
+  return retryAsyncFunction<void>(async () => axios.post('http://localhost:765/image', body), 3)
 }

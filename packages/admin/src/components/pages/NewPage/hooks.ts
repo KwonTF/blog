@@ -1,7 +1,6 @@
-import axios from 'axios'
 import {useMutation} from '@tanstack/react-query'
 
-import {retryAsyncFunction} from '@blog/shared/utils/promise'
+import {uploadImages} from '@blog/admin/src/utils/imageUpload/upload'
 
 export function useImageUpload(input: FileList[] = []) {
   if (input.length < 1) {
@@ -9,8 +8,13 @@ export function useImageUpload(input: FileList[] = []) {
   }
 
   const {data, isLoading, isError, mutate} = useMutation(async () => {
-    const result = await retryAsyncFunction(() => axios.get('http://localhost:765/image'), 3, 0, 1000)
-    return result
+    const uploadResults = []
+    for (const fileList of input) {
+      const fileListResult = await uploadImages(fileList)
+      uploadResults.push(fileListResult)
+    }
+
+    return uploadResults
   })
 
   return {data, isLoading, isError, postImages: mutate}
