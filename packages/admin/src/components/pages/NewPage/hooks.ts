@@ -2,20 +2,23 @@ import {useMutation} from '@tanstack/react-query'
 
 import {uploadImages} from '@blog/admin/src/utils/imageUpload/upload'
 
-export function useImageUpload(input: FileList[] = []) {
+export function useArticleUpload(input: FileList[] = [], articleUpload: (files: string[][]) => void) {
   if (input.length < 1) {
     return null
   }
 
-  const {data, isLoading, isError, mutate} = useMutation(async () => {
-    const uploadResults = []
-    for (const fileList of input) {
-      const fileListResult = await uploadImages(fileList)
-      uploadResults.push(fileListResult)
-    }
+  const {data, isLoading, isError, mutate} = useMutation<string[][]>(
+    async () => {
+      const uploadResults: string[][] = []
+      for (const fileList of input) {
+        const fileListResult = await uploadImages(fileList)
+        uploadResults.push(fileListResult.data)
+      }
 
-    return uploadResults
-  })
+      return uploadResults
+    },
+    {onSuccess: articleUpload}
+  )
 
-  return {data, isLoading, isError, postImages: mutate}
+  return {data, isLoading, isError, postArticle: mutate}
 }

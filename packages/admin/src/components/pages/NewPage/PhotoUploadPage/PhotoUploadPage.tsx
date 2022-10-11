@@ -1,7 +1,8 @@
 import React, {FC, useMemo, useState, useCallback} from 'react'
 import useStyles from 'isomorphic-style-loader/useStyles'
 
-import {useImageUpload} from '@blog/admin/src/components/pages/NewPage/hooks'
+import {useArticleUpload} from '@blog/admin/src/components/pages/NewPage/hooks'
+import {CardInput, usePostArticleMutation} from '@blog/admin/src/__generated__/graphql-types'
 
 import PhotoUpload from './PhotoUpload'
 import styles from '../NewPage.scss'
@@ -31,7 +32,33 @@ const PhotoUploadPage: FC<Props> = ({htmlString}) => {
   }, [htmlString])
 
   const [images, setImages] = useState<FileList[]>(new Array(customAreas.length))
-  const {postImages} = useImageUpload(images)
+  const {data: uploadedData, isLoading: articleUploadLoading, mutate} = usePostArticleMutation({
+    endpoint: 'http://localhost:765/graphql',
+    fetchParams: {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+  })
+  const uploadArticles = useCallback(
+    async (uploadedImages: string[][]) => {
+      const cards: CardInput[] = []
+      for (const items of uploadedImages) {
+        const [tempCard] = items
+        cards.push({url: tempCard, desc: 'ABC'})
+      }
+      const input = {
+        title: 'Uploaded By Admin',
+        body: htmlString,
+        author: '630895a992dff0932b3691fa',
+        cards
+      }
+      mutate({input})
+    },
+    [htmlString, mutate]
+  )
+
+  const {postArticle} = useArticleUpload(images, uploadArticles)
   const setMedia = useCallback((input: FileList, index: number) => {
     setImages((items) => {
       const tempItems = items
@@ -45,7 +72,8 @@ const PhotoUploadPage: FC<Props> = ({htmlString}) => {
       {customAreas.map((comment, index) => (
         <PhotoUpload key={`${index}_${comment}`} index={index} comment={comment} setMedia={setMedia} />
       ))}
-      <button onClick={() => postImages()}>글 올리기</button>
+
+      {!(uploadedData || articleUploadLoading) && <button onClick={() => postArticle()}>글 올리기</button>}
     </>
   )
 }

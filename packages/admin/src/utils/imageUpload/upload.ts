@@ -8,5 +8,5 @@ export async function uploadImages(images: FileList) {
     const file = images.item(index)
     body.append('files', file)
   }
-  return retryAsyncFunction<void>(async () => axios.post('http://localhost:765/image', body), 3)
+  return retryAsyncFunction(async () => axios.post<string[]>('http://localhost:765/image', body), 3)
 }

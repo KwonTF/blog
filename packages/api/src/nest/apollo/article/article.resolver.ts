@@ -23,11 +23,12 @@ class ArticleMutationResolver {
   constructor(@InjectModel(ArticleModel.name) private articleModel: Model<ArticlesDocument>) {}
   @Mutation('postArticle')
   async postArticle(@Args() {input}: MutationPostArticleArgs) {
-    const {author, title, body} = input || {}
+    const {author, title, body, cards} = input || {}
     const resultArticle = await this.articleModel.create({
       author: convertToTypesObjectId(author),
       title,
       body,
+      cards,
       viewCount: 0
     })
 

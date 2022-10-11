@@ -21,6 +21,16 @@ type FlickItem {
   cards: [Card!]
 }
 
+input CardInput {
+  url: String!
+  desc: String
+}
+
+input FlickItemInput {
+  desc: String
+  cards: [CardInput]!
+}
+
 input ArticleInput {
   author: String!
   thumbnail: String
@@ -30,6 +40,8 @@ input ArticleInput {
   nextArticle: ID
   group: String
   tags: [String!]
+  cards: [CardInput!]
+  flickItems: [FlickItemInput!]
 }
 
 type Query {

@@ -47,6 +47,8 @@ export type ArticleInput = {
   author: Scalars['String'];
   backArticle?: InputMaybe<Scalars['ID']>;
   body: Scalars['String'];
+  cards?: InputMaybe<Array<CardInput>>;
+  flickItems?: InputMaybe<Array<FlickItemInput>>;
   group?: InputMaybe<Scalars['String']>;
   nextArticle?: InputMaybe<Scalars['ID']>;
   tags?: InputMaybe<Array<Scalars['String']>>;
@@ -62,10 +64,20 @@ export type Card = {
   url: Scalars['String'];
 };
 
+export type CardInput = {
+  desc?: InputMaybe<Scalars['String']>;
+  url: Scalars['String'];
+};
+
 export type FlickItem = {
   __typename?: 'FlickItem';
   cards?: Maybe<Array<Card>>;
   desc?: Maybe<Scalars['String']>;
+};
+
+export type FlickItemInput = {
+  cards: Array<InputMaybe<CardInput>>;
+  desc?: InputMaybe<Scalars['String']>;
 };
 
 export type Mutation = {
