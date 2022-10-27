@@ -1,16 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {loadableReady} from '@loadable/component'
+import {QueryClient, Hydrate, QueryClientProvider} from '@tanstack/react-query'
 import StyleContext from 'isomorphic-style-loader/StyleContext'
 
 import App from '@blog/admin/src/app'
 
 interface WindowWithServerValues extends Window {
   __ENV_VALUES__?: string
+  __REACT_QUERY_STATE__?: string
 }
 
 export const renderClient = () => {
   const windowWithServerValues = window as WindowWithServerValues
+  const dehydratedState = windowWithServerValues.__REACT_QUERY_STATE__
+  const queryClient = new QueryClient()
 
   const insertCss = (...styles) => {
     // eslint-disable-next-line no-underscore-dangle
@@ -21,9 +25,13 @@ export const renderClient = () => {
   windowWithServerValues['__ENV_VALUES__'] = JSON.parse(windowWithServerValues['__ENV_VALUES__'] || '')
   loadableReady(() => {
     ReactDOM.hydrate(
-      <StyleContext.Provider value={{insertCss}}>
-        <App />
-      </StyleContext.Provider>,
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={dehydratedState}>
+          <StyleContext.Provider value={{insertCss}}>
+            <App />
+          </StyleContext.Provider>
+        </Hydrate>
+      </QueryClientProvider>,
       document.getElementById('app-root')
     )
   })

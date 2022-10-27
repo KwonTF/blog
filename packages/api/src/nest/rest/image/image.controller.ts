@@ -32,6 +32,7 @@ export class ImageController {
     })
 
     try {
+      const fileUrls: string[] = []
       for (const file of files) {
         const bucketParams = {
           Bucket: BUCKET_NAME,
@@ -42,7 +43,9 @@ export class ImageController {
         const signedUrl = await getSignedUrl(s3Client, command, {expiresIn: 3600})
 
         await fetch(signedUrl, {method: 'PUT', body: bucketParams.Body})
+        fileUrls.push(signedUrl.split('?')[0])
       }
+      return fileUrls
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)

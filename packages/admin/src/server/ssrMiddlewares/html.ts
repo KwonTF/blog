@@ -1,5 +1,6 @@
 import {Context} from 'koa'
 import {ChunkExtractor} from '@loadable/server'
+import {QueryClient, dehydrate} from '@tanstack/react-query'
 
 import {renderStyles} from '@blog/admin/src/server/render/styles'
 
@@ -7,7 +8,10 @@ export async function htmlMiddleware(ctx: Context) {
   const {entryPoints: entrypoints, clientConfig: config, clientConfigString, serverRenderer, webStatsFile, envValues} = ctx?.state
   const styles = {}
   const webExtractor = new ChunkExtractor({statsFile: webStatsFile, entrypoints})
-  const {renderedString: appString, css} = await serverRenderer({ctx, extractor: webExtractor, styles})
+  const reactQueryClient = new QueryClient()
+  const dehydratedState = dehydrate(reactQueryClient)
+  // TODO: SSR Style Provider
+  const {renderedString: appString, css} = await serverRenderer({ctx, extractor: webExtractor, reactQueryClient, dehydratedState})
   if (ctx?.state?.routerContext?.url) {
     ctx.redirect(ctx.state.routerContext.url)
     return
@@ -29,6 +33,7 @@ export async function htmlMiddleware(ctx: Context) {
         window.__DEPLOY_ENV__ = "development";
         window.__APP_CONFIG__ = ${clientConfigString};
         window.__ENV_VALUES__ = ${JSON.stringify(envValues)};
+        ${dehydratedState ? `window.__REACT_QUERY_STATE__ = ${JSON.stringify(dehydratedState)};` : ''}
       </script>
       ${webExtractor.getScriptTags()}
     </html>
